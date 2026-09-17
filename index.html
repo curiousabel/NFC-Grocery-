@@ -1,184 +1,101 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>NFC Kitchen Magic</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f5f6f3">
+
+<title>KitchenTap</title>
 
 <style>
 :root{
-  --bg:#0b0f0d;
-  --panel:#121814;
-  --text:#f5f7f5;
-  --muted:#98a39b;
-  --green:#57e36d;
-  --line:#263028;
+  --bg:#f5f6f3;
+  --card:#ffffff;
+  --text:#111713;
+  --muted:#747b75;
+  --green:#1f9d55;
+  --green-dark:#167a40;
+  --green-soft:#e8f7ed;
+  --border:#e4e8e4;
+  --red:#c63c3c;
+  --orange-soft:#fff2e8;
+  --orange:#a95724;
 }
 
 *{
   box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
 body{
   margin:0;
-  background:linear-gradient(180deg,#07100a,#0b0f0d 35%);
+  background:var(--bg);
   color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",
+  "Segoe UI",sans-serif;
 }
 
-.app{
-  max-width:520px;
-  margin:auto;
-  min-height:100vh;
-  padding:18px 16px 100px;
-}
-
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:16px;
-}
-
-.brand{
-  font-size:22px;
-  font-weight:bold;
-}
-
-.brand span{
-  color:var(--green);
-}
-
-.small{
-  color:var(--muted);
-  font-size:13px;
-}
-
-.hero{
-  background:linear-gradient(135deg,#173b20,#102418);
-  border:1px solid #24582f;
-  border-radius:24px;
-  padding:20px;
-  margin-bottom:16px;
-}
-
-.hero h1{
-  margin:0 0 8px;
-  font-size:28px;
-}
-
-.hero p{
-  margin:0;
-  color:#c3d2c7;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-.card{
-  border-radius:20px;
-  padding:16px;
-  min-height:135px;
-  cursor:pointer;
-}
-
-.card .icon{
-  font-size:30px;
-  margin-bottom:16px;
-}
-
-.card h3{
-  margin:0 0 6px;
-}
-
-.card p{
-  margin:0;
-  font-size:13px;
-}
-
-.green{
-  background:linear-gradient(135deg,#1c8b36,#2db94a);
-}
-
-.blue{
-  background:linear-gradient(135deg,#285ca0,#4c92e8);
-}
-
-.purple{
-  background:linear-gradient(135deg,#6635a0,#9863df);
-}
-
-.orange{
-  background:linear-gradient(135deg,#ba5c0a,#f58f20);
-}
-
-.section{
-  margin-top:20px;
-}
-
-.section h2{
-  font-size:18px;
-}
-
-.list{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
-.row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:13px;
-}
-
-.left{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
+button,
 input{
-  width:100%;
-  padding:13px;
-  border-radius:14px;
-  border:1px solid var(--line);
-  background:#0f1411;
-  color:white;
-  outline:none;
+  font:inherit;
 }
 
 button{
-  border:none;
-  border-radius:14px;
-  padding:12px 14px;
-  font-weight:bold;
   cursor:pointer;
 }
 
-.btn{
+.app{
+  max-width:560px;
+  margin:auto;
+  min-height:100vh;
+  padding:18px 16px 110px;
+}
+
+/* HEADER */
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:5px 0 22px;
+}
+
+.eyebrow{
+  color:var(--muted);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1.3px;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:850;
+}
+
+.logo span{
+  color:var(--green);
+}
+
+.nfc-status{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 11px;
+  background:var(--green-soft);
+  color:var(--green-dark);
+  border-radius:50px;
+  font-size:12px;
+  font-weight:750;
+}
+
+.dot{
+  width:7px;
+  height:7px;
   background:var(--green);
-  color:#08100a;
+  border-radius:50%;
 }
 
-.btn2{
-  background:#1a211c;
-  color:white;
-  border:1px solid var(--line);
-}
-
-.controls{
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:8px;
-}
+/* PAGE */
 
 .page{
   display:none;
@@ -188,1262 +105,2089 @@ button{
   display:block;
 }
 
-.tabs{
-  display:flex;
-  gap:8px;
-  margin:12px 0;
-  overflow:auto;
+h1{
+  margin:4px 0 8px;
+  font-size:32px;
+  line-height:1.06;
 }
 
-.tab{
-  padding:9px 13px;
-  border-radius:50px;
-  background:#151b17;
-  border:1px solid var(--line);
-  white-space:nowrap;
+.description{
+  color:var(--muted);
+  line-height:1.5;
+  margin:0 0 18px;
+}
+
+/* HOME HERO */
+
+.hero{
+  background:#111713;
+  color:white;
+  padding:24px;
+  border-radius:27px;
+}
+
+.hero .eyebrow{
+  color:#83dda4;
+}
+
+.hero h1{
+  font-size:32px;
+  margin-top:8px;
+}
+
+.hero p{
+  color:#c6cec8;
+  line-height:1.5;
+}
+
+.hero button{
+  width:100%;
+  margin-top:8px;
+}
+
+/* BUTTONS */
+
+.btn{
+  border:none;
+  padding:13px 16px;
+  border-radius:14px;
+  font-weight:750;
+}
+
+.primary{
+  background:var(--green);
+  color:white;
+}
+
+.primary:active{
+  background:var(--green-dark);
+  transform:scale(.98);
+}
+
+.secondary{
+  background:white;
+  color:var(--text);
+  border:1px solid var(--border);
+}
+
+.danger{
+  background:white;
+  color:var(--red);
+  border:1px solid #efd4d4;
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin:12px 0;
+}
+
+.stat{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:17px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.stat strong{
+  display:block;
+  font-size:29px;
+  margin-top:4px;
+}
+
+/* HOME CARDS */
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.home-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:17px;
+  min-height:135px;
   cursor:pointer;
 }
 
-.tab.active{
-  background:var(--green);
-  color:#08100a;
-  font-weight:bold;
+.home-card:active{
+  transform:scale(.98);
 }
 
-.recipe{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:15px;
-  margin-bottom:10px;
+.card-icon{
+  font-size:28px;
 }
 
-.recipe h3{
-  margin:0 0 7px;
+.home-card h3{
+  margin:20px 0 5px;
 }
 
-.recipe p{
+.home-card p{
+  margin:0;
   color:var(--muted);
   font-size:13px;
 }
 
-.bottom{
+/* SECTIONS */
+
+.section{
+  margin-top:24px;
+}
+
+.section-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+
+.section-header h2{
+  font-size:19px;
+  margin:0;
+}
+
+.small{
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* INPUT */
+
+.input-row{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:8px;
+  margin-top:18px;
+}
+
+input[type="text"]{
+  width:100%;
+  border:1px solid var(--border);
+  background:white;
+  color:var(--text);
+  border-radius:15px;
+  padding:14px;
+  outline:none;
+  font-size:16px;
+}
+
+input[type="text"]:focus{
+  border-color:var(--green);
+}
+
+/* LIST */
+
+.list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.list-row{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:13px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.list-left{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  min-width:0;
+}
+
+.item-name{
+  font-weight:720;
+}
+
+.source{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.icon-button{
+  border:1px solid var(--border);
+  background:white;
+  border-radius:12px;
+  padding:9px 11px;
+}
+
+.checkbox{
+  width:21px;
+  height:21px;
+  accent-color:var(--green);
+}
+
+.bought{
+  text-decoration:line-through;
+  opacity:.45;
+}
+
+.empty{
+  background:white;
+  border:1px dashed #d8ddd8;
+  border-radius:20px;
+  padding:30px 18px;
+  text-align:center;
+  color:var(--muted);
+}
+
+.empty-icon{
+  font-size:32px;
+  margin-bottom:8px;
+}
+
+/* QUICK ADD */
+
+.quick-button{
+  border:1px solid var(--border);
+  background:white;
+  border-radius:13px;
+  padding:9px 12px;
+  font-weight:700;
+}
+
+/* MEAL TABS */
+
+.tabs{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  margin:17px 0;
+  padding-bottom:2px;
+}
+
+.tab{
+  flex:none;
+  border:1px solid var(--border);
+  background:white;
+  color:var(--text);
+  border-radius:40px;
+  padding:9px 14px;
+  font-weight:650;
+}
+
+.tab.active{
+  background:#111713;
+  color:white;
+  border-color:#111713;
+}
+
+/* RECIPE */
+
+.recipe{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:18px;
+  margin-bottom:10px;
+}
+
+.recipe-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.recipe h3{
+  margin:4px 0 3px;
+  font-size:19px;
+}
+
+.time{
+  background:#f1f3f1;
+  border-radius:40px;
+  padding:7px 10px;
+  font-size:12px;
+  height:max-content;
+  white-space:nowrap;
+}
+
+.progress{
+  width:100%;
+  height:7px;
+  background:#edf0ed;
+  border-radius:20px;
+  overflow:hidden;
+  margin:13px 0 6px;
+}
+
+.progress-bar{
+  height:100%;
+  background:var(--green);
+  border-radius:20px;
+}
+
+.ingredient-label{
+  font-size:11px;
+  font-weight:800;
+  color:var(--muted);
+  margin-top:14px;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+}
+
+.pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:7px;
+}
+
+.pill{
+  padding:6px 9px;
+  border-radius:30px;
+  font-size:12px;
+  background:var(--green-soft);
+  color:var(--green-dark);
+}
+
+.pill.missing{
+  background:var(--orange-soft);
+  color:var(--orange);
+}
+
+.recipe .primary{
+  width:100%;
+  margin-top:15px;
+}
+
+/* GROCERY ACTIONS */
+
+.list-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:12px;
+}
+
+.list-actions button{
+  width:100%;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%) translateY(-15px);
+  background:#111713;
+  color:white;
+  padding:11px 16px;
+  border-radius:40px;
+  font-size:13px;
+  font-weight:650;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+  z-index:100;
+  max-width:90%;
+  text-align:center;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* NAVIGATION */
+
+.bottom-nav{
   position:fixed;
   bottom:0;
   left:50%;
   transform:translateX(-50%);
-  width:min(520px,100%);
+  width:min(560px,100%);
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(18px);
+  border-top:1px solid var(--border);
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  background:#0a0e0b;
-  border-top:1px solid var(--line);
-  padding:10px 5px 18px;
+  padding:8px 5px max(17px,env(safe-area-inset-bottom));
+  z-index:30;
 }
 
 .nav{
   text-align:center;
-  color:#9da7a0;
-  font-size:11px;
+  color:#858c86;
+  font-size:10px;
   cursor:pointer;
+  padding:3px;
 }
 
-.nav b{
+.nav-icon{
   display:block;
-  font-size:22px;
+  font-size:21px;
+  margin-bottom:2px;
 }
 
 .nav.active{
   color:var(--green);
+  font-weight:750;
 }
 
-.toast{
-  position:fixed;
-  top:20px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#1b2a1f;
-  border:1px solid #2c6a39;
-  padding:10px 15px;
-  border-radius:50px;
-  display:none;
-  z-index:100;
-}
+@media(max-width:360px){
+  .app{
+    padding-left:12px;
+    padding-right:12px;
+  }
 
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.75);
-  display:none;
-  align-items:end;
-  justify-content:center;
-  z-index:50;
-}
-
-.modal.show{
-  display:flex;
-}
-
-.sheet{
-  width:min(520px,100%);
-  background:#101612;
-  border-radius:24px 24px 0 0;
-  padding:20px;
+  h1{
+    font-size:29px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="toast" id="toast">
-Added
-</div>
+<div id="toast" class="toast"></div>
 
-<div class="app">
+<main class="app">
 
-<div class="top">
+<header class="header">
 
-<div>
-<div class="brand">
-NFC Kitchen <span>Magic</span>
-</div>
+  <div>
+    <div class="eyebrow">SMART KITCHEN</div>
+    <div class="logo">
+      Kitchen<span>Tap</span>
+    </div>
+  </div>
 
-<div class="small">
-Smart grocery + meal finder
-</div>
-</div>
+  <div class="nfc-status">
+    <span class="dot"></span>
+    NFC Ready
+  </div>
 
-<div>
-👤
-</div>
-
-</div>
+</header>
 
 
 <!-- HOME -->
 
 <section id="home" class="page active">
 
-<div class="hero">
+  <div class="hero">
 
-<h1>
-What's cooking today?
-</h1>
+    <div class="eyebrow">
+      YOUR KITCHEN ASSISTANT
+    </div>
 
-<p>
-Use what you already have, add groceries with NFC, and find quick meal ideas.
-</p>
+    <h1>
+      What can we make today?
+    </h1>
 
-</div>
+    <p>
+      Keep your kitchen organized, build your grocery
+      list with a tap, and cook with what you already have.
+    </p>
 
+    <button
+      class="btn primary"
+      onclick="go('meals')">
+      Find a meal →
+    </button>
 
-<div class="grid">
-
-<div class="card green" onclick="go('meals')">
-
-<div class="icon">
-🍲
-</div>
-
-<h3>
-Find a Meal
-</h3>
-
-<p>
-Meal ideas from your kitchen
-</p>
-
-</div>
+  </div>
 
 
-<div class="card blue" onclick="go('kitchen')">
+  <div class="stats">
 
-<div class="icon">
-🧊
-</div>
+    <div class="stat">
+      <span>In your kitchen</span>
+      <strong id="inventoryCount">0</strong>
+    </div>
 
-<h3>
-My Kitchen
-</h3>
+    <div class="stat">
+      <span>Need to buy</span>
+      <strong id="groceryCount">0</strong>
+    </div>
 
-<p>
-Pantry, fridge and freezer
-</p>
-
-</div>
+  </div>
 
 
-<div class="card purple" onclick="go('list')">
+  <div class="grid">
 
-<div class="icon">
-🛒
-</div>
+    <div
+      class="home-card"
+      onclick="go('kitchen')">
 
-<h3>
-Grocery List
-</h3>
+      <div class="card-icon">
+        🥬
+      </div>
 
-<p>
-View and manage your list
-</p>
+      <h3>
+        My Kitchen
+      </h3>
 
-</div>
+      <p>
+        See what you have at home
+      </p>
 
-
-<div class="card orange" onclick="openAdd()">
-
-<div class="icon">
-📡
-</div>
-
-<h3>
-Scan / Tap Item
-</h3>
-
-<p>
-Quick add an item
-</p>
-
-</div>
-
-</div>
+    </div>
 
 
-<div class="section">
+    <div
+      class="home-card"
+      onclick="go('list')">
 
-<h2>
-Quick Add
-</h2>
+      <div class="card-icon">
+        🛒
+      </div>
 
-<div class="list" id="quick">
-</div>
+      <h3>
+        Grocery List
+      </h3>
 
-</div>
+      <p>
+        Tap, add and check off
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="section-header">
+
+      <h2>
+        Quick Add
+      </h2>
+
+      <span class="small">
+        Common items
+      </span>
+
+    </div>
+
+    <div
+      id="quickList"
+      class="list">
+    </div>
+
+  </div>
 
 </section>
-
 
 
 <!-- KITCHEN -->
 
 <section id="kitchen" class="page">
 
-<h1>
-My Kitchen
-</h1>
+  <div class="eyebrow">
+    INVENTORY
+  </div>
 
-<div class="controls">
+  <h1>
+    My Kitchen
+  </h1>
 
-<input
-id="inventoryInput"
-placeholder="Add item to kitchen"
-/>
-
-<button
-class="btn"
-onclick="addInventory()"
->
-Add
-</button>
-
-</div>
-
-<div
-class="section list"
-id="inventory">
-</div>
-
-</section>
+  <p class="description">
+    Meal Finder uses this list to figure out what
+    ingredients you already have.
+  </p>
 
 
+  <div class="input-row">
 
-<!-- GROCERY LIST -->
+    <input
+      id="inventoryInput"
+      type="text"
+      placeholder="Add an ingredient">
 
-<section id="list" class="page">
+    <button
+      class="btn primary"
+      onclick="addInventory()">
+      Add
+    </button>
 
-<h1>
-Grocery List
-</h1>
+  </div>
 
-<div class="controls">
 
-<input
-id="groceryInput"
-placeholder="Milk, eggs, bread..."
-/>
-
-<button
-class="btn"
-onclick="addGrocery()"
->
-Add
-</button>
-
-</div>
-
-<div
-class="section list"
-id="grocery">
-</div>
-
-<button
-class="btn2"
-style="width:100%;margin-top:12px;"
-onclick="clearBought()"
->
-
-Clear purchased
-
-</button>
+  <div
+    id="inventoryList"
+    class="section list">
+  </div>
 
 </section>
-
 
 
 <!-- MEALS -->
 
 <section id="meals" class="page">
 
-<h1>
-Find a Meal
-</h1>
+  <div class="eyebrow">
+    MEAL FINDER
+  </div>
 
-<div class="small">
-How much time do you have?
-</div>
+  <h1>
+    Cook with what you have
+  </h1>
 
-<div class="tabs">
-
-<div
-class="tab active"
-onclick="setTime(this,15)"
->
-15 min
-</div>
-
-<div
-class="tab"
-onclick="setTime(this,30)"
->
-30 min
-</div>
-
-<div
-class="tab"
-onclick="setTime(this,60)"
->
-60 min
-</div>
-
-<div
-class="tab"
-onclick="setTime(this,999)"
->
-Any
-</div>
-
-</div>
+  <p class="description">
+    We'll automatically compare each meal with
+    what's currently in My Kitchen.
+  </p>
 
 
-<button
-class="btn"
-style="width:100%;margin-bottom:15px;"
-onclick="findMeals()"
->
+  <div class="tabs">
 
-✨ Find Meals From My Kitchen
+    <button
+      class="tab active"
+      onclick="setTime(this,15)">
+      15 min
+    </button>
 
-</button>
+    <button
+      class="tab"
+      onclick="setTime(this,30)">
+      30 min
+    </button>
 
-<div id="recipes">
-</div>
+    <button
+      class="tab"
+      onclick="setTime(this,60)">
+      60 min
+    </button>
+
+    <button
+      class="tab"
+      onclick="setTime(this,999)">
+      Any time
+    </button>
+
+  </div>
+
+
+  <div id="recipeList">
+  </div>
 
 </section>
 
-</div>
+
+<!-- GROCERY -->
+
+<section id="list" class="page">
+
+  <div class="eyebrow">
+    SHOPPING
+  </div>
+
+  <h1>
+    Grocery List
+  </h1>
+
+  <p class="description">
+    Items from NFC tags, Meal Finder and manual
+    additions all appear here.
+  </p>
 
 
+  <div class="input-row">
 
-<!-- NAVIGATION -->
+    <input
+      id="groceryInput"
+      type="text"
+      placeholder="Milk, eggs, bread...">
 
-<div class="bottom">
+    <button
+      class="btn primary"
+      onclick="manualAdd()">
+      Add
+    </button>
 
-<div
-class="nav active"
-data-page="home"
-onclick="go('home')"
->
-
-<b>⌂</b>
-
-Home
-
-</div>
+  </div>
 
 
-<div
-class="nav"
-data-page="kitchen"
-onclick="go('kitchen')"
->
-
-<b>▦</b>
-
-Kitchen
-
-</div>
+  <div
+    id="groceryList"
+    class="section list">
+  </div>
 
 
-<div
-class="nav"
-data-page="meals"
-onclick="go('meals')"
->
+  <div class="list-actions">
 
-<b>✦</b>
+    <button
+      class="btn secondary"
+      onclick="clearPurchased()">
+      Clear Purchased
+    </button>
 
-Meals
+    <button
+      class="btn danger"
+      onclick="clearAll()">
+      Clear All
+    </button>
 
-</div>
+  </div>
 
+</section>
 
-<div
-class="nav"
-data-page="list"
-onclick="go('list')"
->
-
-<b>☷</b>
-
-List
-
-</div>
-
-</div>
+</main>
 
 
+<!-- NAV -->
 
-<!-- NFC QUICK ADD -->
+<nav class="bottom-nav">
 
-<div
-class="modal"
-id="modal"
->
+  <div
+    class="nav active"
+    data-page="home"
+    onclick="go('home')">
 
-<div class="sheet">
+    <span class="nav-icon">
+      ⌂
+    </span>
 
-<h2>
-Quick Add Item
-</h2>
+    Home
 
-<p class="small">
-This will later connect to your NFC stickers.
-</p>
-
-<input
-id="nfcInput"
-placeholder="Example: Milk"
-/>
-
-<button
-class="btn"
-style="width:100%;margin-top:10px;"
-onclick="nfcAdd()"
->
-
-Add to Grocery List
-
-</button>
+  </div>
 
 
-<button
-class="btn2"
-style="width:100%;margin-top:8px;"
-onclick="closeAdd()"
->
+  <div
+    class="nav"
+    data-page="kitchen"
+    onclick="go('kitchen')">
 
-Cancel
+    <span class="nav-icon">
+      ▦
+    </span>
 
-</button>
+    Kitchen
 
-</div>
+  </div>
 
-</div>
 
+  <div
+    class="nav"
+    data-page="meals"
+    onclick="go('meals')">
+
+    <span class="nav-icon">
+      ✦
+    </span>
+
+    Meals
+
+  </div>
+
+
+  <div
+    class="nav"
+    data-page="list"
+    onclick="go('list')">
+
+    <span class="nav-icon">
+      ☷
+    </span>
+
+    List
+
+  </div>
+
+</nav>
 
 
 <script>
 
+/* =========================
+   STORAGE
+========================= */
+
+const GROCERY_KEY = "groceries";
+const INVENTORY_KEY = "inventory";
+
+
 let groceries =
 JSON.parse(
-localStorage.getItem("groceries") || "[]"
+  localStorage.getItem(GROCERY_KEY) || "[]"
 );
 
 
 let inventory =
 JSON.parse(
-localStorage.getItem("inventory") ||
-'["Rice","Chicken breast","Eggs","Onion","Tomato sauce","Cheese","Milk","Tortillas"]'
+  localStorage.getItem(INVENTORY_KEY) ||
+  '["Rice","Chicken breast","Eggs","Onion","Tomato sauce","Cheese","Milk","Tortillas"]'
 );
 
 
 let cookTime = 15;
 
 
+/* =========================
+   DATA
+========================= */
+
 const quickItems = [
-
-"Milk",
-"Eggs",
-"Bread",
-"Chicken",
-"Rice",
-"Coffee"
-
+  "Milk",
+  "Eggs",
+  "Bread",
+  "Chicken",
+  "Rice",
+  "Coffee"
 ];
-
-
-function save(){
-
-localStorage.setItem(
-"groceries",
-JSON.stringify(groceries)
-);
-
-localStorage.setItem(
-"inventory",
-JSON.stringify(inventory)
-);
-
-}
-
-
-function toast(text){
-
-let t =
-document.getElementById("toast");
-
-t.textContent = text;
-
-t.style.display = "block";
-
-setTimeout(()=>{
-
-t.style.display = "none";
-
-},1400);
-
-}
-
-
-
-function go(id){
-
-document
-.querySelectorAll(".page")
-.forEach(page=>{
-
-page.classList.remove("active");
-
-});
-
-
-document
-.getElementById(id)
-.classList.add("active");
-
-
-document
-.querySelectorAll(".nav")
-.forEach(nav=>{
-
-nav.classList.toggle(
-"active",
-nav.dataset.page === id
-);
-
-});
-
-render();
-
-}
-
-
-
-function render(){
-
-document.getElementById("quick").innerHTML =
-
-quickItems.map(item=>`
-
-<div class="row">
-
-<div class="left">
-
-<span>
-📦
-</span>
-
-<b>
-${item}
-</b>
-
-</div>
-
-<button
-class="btn2"
-onclick="quickAdd('${item}')"
->
-
-+ Add
-
-</button>
-
-</div>
-
-`).join("");
-
-
-
-document.getElementById("inventory").innerHTML =
-
-inventory.map((item,index)=>`
-
-<div class="row">
-
-<div class="left">
-
-<span>
-🍽️
-</span>
-
-<div>
-
-<b>
-${item}
-</b>
-
-<div class="small">
-In stock
-</div>
-
-</div>
-
-</div>
-
-<button
-class="btn2"
-onclick="removeInventory(${index})"
->
-
-Remove
-
-</button>
-
-</div>
-
-`).join("");
-
-
-
-if(groceries.length === 0){
-
-document.getElementById("grocery").innerHTML =
-
-'<div class="small">Your grocery list is empty.</div>';
-
-}else{
-
-document.getElementById("grocery").innerHTML =
-
-groceries.map((item,index)=>`
-
-<div class="row">
-
-<div class="left">
-
-<input
-type="checkbox"
-style="width:20px;height:20px;"
-${item.done ? "checked" : ""}
-onchange="toggleBought(${index})"
-/>
-
-<div>
-
-<b style="
-${item.done ? "text-decoration:line-through;opacity:.5;" : ""}
-">
-
-${item.name}
-
-</b>
-
-<div class="small">
-
-${item.source || "Manual"}
-
-</div>
-
-</div>
-
-</div>
-
-
-<button
-class="btn2"
-onclick="removeGrocery(${index})"
->
-
-×
-
-</button>
-
-</div>
-
-`).join("");
-
-}
-
-}
-
-
-
-function quickAdd(name){
-
-groceries.push({
-
-name:name,
-
-done:false,
-
-source:"NFC Quick Add"
-
-});
-
-save();
-
-render();
-
-toast(
-name + " added"
-);
-
-}
-
-
-
-function addGrocery(){
-
-let input =
-document.getElementById("groceryInput");
-
-let value =
-input.value.trim();
-
-if(!value){
-
-return;
-
-}
-
-groceries.push({
-
-name:value,
-
-done:false,
-
-source:"Manual"
-
-});
-
-input.value = "";
-
-save();
-
-render();
-
-toast("Added");
-
-}
-
-
-
-function addInventory(){
-
-let input =
-document.getElementById("inventoryInput");
-
-let value =
-input.value.trim();
-
-if(!value){
-
-return;
-
-}
-
-inventory.push(value);
-
-input.value = "";
-
-save();
-
-render();
-
-toast(
-"Kitchen updated"
-);
-
-}
-
-
-
-function removeInventory(index){
-
-inventory.splice(
-index,
-1
-);
-
-save();
-
-render();
-
-}
-
-
-
-function removeGrocery(index){
-
-groceries.splice(
-index,
-1
-);
-
-save();
-
-render();
-
-}
-
-
-
-function toggleBought(index){
-
-groceries[index].done =
-!groceries[index].done;
-
-save();
-
-render();
-
-}
-
-
-
-function clearBought(){
-
-groceries =
-groceries.filter(
-item=>!item.done
-);
-
-save();
-
-render();
-
-}
-
-
-
-function openAdd(){
-
-document
-.getElementById("modal")
-.classList.add("show");
-
-}
-
-
-
-function closeAdd(){
-
-document
-.getElementById("modal")
-.classList.remove("show");
-
-}
-
-
-
-function nfcAdd(){
-
-let input =
-document.getElementById("nfcInput");
-
-let value =
-input.value.trim();
-
-if(!value){
-
-return;
-
-}
-
-groceries.push({
-
-name:value,
-
-done:false,
-
-source:"NFC Tag"
-
-});
-
-input.value = "";
-
-closeAdd();
-
-save();
-
-render();
-
-toast(
-"NFC item added"
-);
-
-}
-
-
-
-function setTime(element,time){
-
-cookTime = time;
-
-document
-.querySelectorAll("#meals .tab")
-.forEach(tab=>{
-
-tab.classList.remove("active");
-
-});
-
-element
-.classList.add("active");
-
-}
-
-
-
-function findMeals(){
-
-const kitchen =
-inventory.map(
-item=>item.toLowerCase()
-);
 
 
 const meals = [
 
-{
+  {
+    name:"Chicken Rice Bowl",
+    time:25,
+    ingredients:[
+      "Chicken breast",
+      "Rice",
+      "Onion",
+      "Garlic",
+      "Soy sauce"
+    ]
+  },
 
-name:"Chicken Rice Bowl",
+  {
+    name:"Chicken Quesadillas",
+    time:20,
+    ingredients:[
+      "Chicken breast",
+      "Cheese",
+      "Tortillas",
+      "Salsa"
+    ]
+  },
 
-time:25,
+  {
+    name:"Egg Fried Rice",
+    time:15,
+    ingredients:[
+      "Eggs",
+      "Rice",
+      "Onion",
+      "Soy sauce"
+    ]
+  },
 
-need:[
-"chicken breast",
-"rice",
-"onion"
-],
+  {
+    name:"Cheesy Tomato Rice",
+    time:20,
+    ingredients:[
+      "Rice",
+      "Tomato sauce",
+      "Cheese",
+      "Herbs"
+    ]
+  },
 
-missing:[
-"garlic",
-"soy sauce"
-]
+  {
+    name:"Breakfast Quesadilla",
+    time:12,
+    ingredients:[
+      "Eggs",
+      "Cheese",
+      "Tortillas",
+      "Hot sauce"
+    ]
+  },
 
-},
-
-{
-
-name:"Chicken Quesadillas",
-
-time:20,
-
-need:[
-"chicken breast",
-"cheese",
-"tortillas"
-],
-
-missing:[
-"salsa"
-]
-
-},
-
-{
-
-name:"Egg Fried Rice",
-
-time:15,
-
-need:[
-"eggs",
-"rice",
-"onion"
-],
-
-missing:[
-"soy sauce"
-]
-
-},
-
-{
-
-name:"Cheesy Tomato Rice",
-
-time:20,
-
-need:[
-"rice",
-"tomato sauce",
-"cheese"
-],
-
-missing:[
-"herbs"
-]
-
-},
-
-{
-
-name:"Breakfast Quesadilla",
-
-time:12,
-
-need:[
-"eggs",
-"cheese",
-"tortillas"
-],
-
-missing:[
-"hot sauce"
-]
-
-}
+  {
+    name:"Chicken Tomato Pasta",
+    time:30,
+    ingredients:[
+      "Chicken breast",
+      "Pasta",
+      "Tomato sauce",
+      "Onion",
+      "Garlic"
+    ]
+  }
 
 ];
 
 
-let results =
+/* =========================
+   HELPERS
+========================= */
 
-meals
+function normalize(value){
 
-.filter(
-meal =>
-meal.time <= cookTime
-)
-
-.map(meal=>{
-
-let owned =
-meal.need.filter(
-ingredient=>
-kitchen.includes(ingredient)
-).length;
-
-return{
-
-...meal,
-
-score:
-owned /
-meal.need.length
-
-};
-
-})
-
-.sort(
-(a,b)=>
-b.score-a.score
-)
-
-.slice(
-0,
-4
-);
-
-
-
-document.getElementById("recipes").innerHTML =
-
-results.map((meal,index)=>`
-
-<div class="recipe">
-
-<h3>
-
-${index === 0 ? "⭐ " : ""}
-
-${meal.name}
-
-</h3>
-
-<p>
-
-⏱ ${meal.time} min
-
-</p>
-
-<p>
-
-You have
-
-<b>
-
-${Math.round(meal.score*100)}%
-
-</b>
-
-of the main ingredients.
-
-</p>
-
-<p>
-
-<b>
-Uses:
-</b>
-
-${meal.need.join(", ")}
-
-</p>
-
-<button
-class="btn2"
-onclick='addMissing(${JSON.stringify(meal.missing)})'
->
-
-Add Missing Ingredients
-
-</button>
-
-</div>
-
-`).join("");
+  return String(value)
+    .trim()
+    .toLowerCase();
 
 }
 
 
+function save(){
+
+  localStorage.setItem(
+    GROCERY_KEY,
+    JSON.stringify(groceries)
+  );
+
+  localStorage.setItem(
+    INVENTORY_KEY,
+    JSON.stringify(inventory)
+  );
+
+}
+
+
+let toastTimer;
+
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  clearTimeout(toastTimer);
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  toastTimer = setTimeout(()=>{
+
+    toast.classList.remove("show");
+
+  },1700);
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function go(page){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(element=>{
+
+      element.classList.remove("active");
+
+    });
+
+
+  document
+    .getElementById(page)
+    .classList.add("active");
+
+
+  document
+    .querySelectorAll(".nav")
+    .forEach(element=>{
+
+      element.classList.toggle(
+        "active",
+        element.dataset.page === page
+      );
+
+    });
+
+
+  render();
+
+  if(page === "meals"){
+    findMeals();
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================
+   ADD TO GROCERY LIST
+========================= */
+
+function addToGroceryList(
+  name,
+  source = "Manual"
+){
+
+  name = String(name).trim();
+
+  if(!name){
+    return false;
+  }
+
+
+  /*
+    Prevent duplicate active items.
+    A purchased item does not block
+    the item from being added again.
+  */
+
+  const existing =
+    groceries.find(item=>
+
+      normalize(item.name) ===
+      normalize(name)
+
+      &&
+
+      !item.done
+
+    );
+
+
+  if(existing){
+
+    return false;
+
+  }
+
+
+  groceries.push({
+
+    name:name,
+
+    done:false,
+
+    source:source
+
+  });
+
+
+  save();
+
+  render();
+
+  return true;
+
+}
+
+
+/* =========================
+   RENDER APP
+========================= */
+
+function render(){
+
+  /* COUNTERS */
+
+  document
+    .getElementById("inventoryCount")
+    .textContent =
+    inventory.length;
+
+
+  document
+    .getElementById("groceryCount")
+    .textContent =
+    groceries.filter(
+      item=>!item.done
+    ).length;
+
+
+  /* QUICK ADD */
+
+  document
+    .getElementById("quickList")
+    .innerHTML =
+
+    quickItems.map(item=>`
+
+      <div class="list-row">
+
+        <div class="list-left">
+
+          <span>
+            ＋
+          </span>
+
+          <div class="item-name">
+            ${item}
+          </div>
+
+        </div>
+
+        <button
+          class="quick-button"
+          onclick="quickAdd('${item}')">
+          Add
+        </button>
+
+      </div>
+
+    `).join("");
+
+
+  /* INVENTORY */
+
+  const inventoryElement =
+    document.getElementById(
+      "inventoryList"
+    );
+
+
+  if(inventory.length === 0){
+
+    inventoryElement.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          🥬
+        </div>
+
+        Your kitchen is empty.
+
+      </div>
+
+    `;
+
+  }else{
+
+    inventoryElement.innerHTML =
+
+    inventory.map((item,index)=>`
+
+      <div class="list-row">
+
+        <div>
+
+          <div class="item-name">
+            ${item}
+          </div>
+
+          <div class="source">
+            In stock
+          </div>
+
+        </div>
+
+        <button
+          class="icon-button"
+          onclick="removeInventory(${index})">
+          Remove
+        </button>
+
+      </div>
+
+    `).join("");
+
+  }
+
+
+  /* GROCERY LIST */
+
+  const groceryElement =
+    document.getElementById(
+      "groceryList"
+    );
+
+
+  if(groceries.length === 0){
+
+    groceryElement.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          ✓
+        </div>
+
+        <b>
+          Your list is clear
+        </b>
+
+        <div class="small"
+             style="margin-top:5px;">
+
+          Tap an NFC tag or add
+          something above.
+
+        </div>
+
+      </div>
+
+    `;
+
+  }else{
+
+    groceryElement.innerHTML =
+
+    groceries.map((item,index)=>`
+
+      <div class="list-row">
+
+        <div class="list-left">
+
+          <input
+            class="checkbox"
+            type="checkbox"
+
+            ${item.done
+              ? "checked"
+              : ""
+            }
+
+            onchange="
+              togglePurchased(${index})
+            "
+          >
+
+          <div>
+
+            <div
+              class="
+                item-name
+                ${item.done
+                  ? "bought"
+                  : ""
+                }
+              ">
+
+              ${item.name}
+
+            </div>
+
+            <div class="source">
+              ${item.source || "Manual"}
+            </div>
+
+          </div>
+
+        </div>
+
+        <button
+          class="icon-button"
+          onclick="
+            removeGrocery(${index})
+          ">
+          ×
+        </button>
+
+      </div>
+
+    `).join("");
+
+  }
+
+}
+
+
+/* =========================
+   QUICK ADD
+========================= */
+
+function quickAdd(item){
+
+  const added =
+    addToGroceryList(
+      item,
+      "Quick Add"
+    );
+
+
+  showToast(
+
+    added
+      ? item + " added"
+      : item + " is already on your list"
+
+  );
+
+}
+
+
+/* =========================
+   MANUAL GROCERY ADD
+========================= */
+
+function manualAdd(){
+
+  const input =
+    document.getElementById(
+      "groceryInput"
+    );
+
+
+  const value =
+    input.value.trim();
+
+
+  if(!value){
+    return;
+  }
+
+
+  const added =
+    addToGroceryList(
+      value,
+      "Manual"
+    );
+
+
+  if(added){
+
+    input.value = "";
+
+    showToast(
+      value + " added"
+    );
+
+  }else{
+
+    showToast(
+      value +
+      " is already on your list"
+    );
+
+  }
+
+}
+
+
+/* ENTER KEY */
+
+document
+  .getElementById("groceryInput")
+  .addEventListener(
+    "keydown",
+    event=>{
+
+      if(event.key === "Enter"){
+
+        manualAdd();
+
+      }
+
+    }
+  );
+
+
+document
+  .getElementById("inventoryInput")
+  .addEventListener(
+    "keydown",
+    event=>{
+
+      if(event.key === "Enter"){
+
+        addInventory();
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   INVENTORY
+========================= */
+
+function addInventory(){
+
+  const input =
+    document.getElementById(
+      "inventoryInput"
+    );
+
+
+  const value =
+    input.value.trim();
+
+
+  if(!value){
+    return;
+  }
+
+
+  const exists =
+    inventory.some(item=>
+
+      normalize(item) ===
+      normalize(value)
+
+    );
+
+
+  if(exists){
+
+    showToast(
+      value +
+      " is already in your kitchen"
+    );
+
+    return;
+
+  }
+
+
+  inventory.push(value);
+
+  input.value = "";
+
+  save();
+
+  render();
+
+  findMeals();
+
+  showToast(
+    value +
+    " added to your kitchen"
+  );
+
+}
+
+
+function removeInventory(index){
+
+  const removed =
+    inventory[index];
+
+  inventory.splice(
+    index,
+    1
+  );
+
+  save();
+
+  render();
+
+  findMeals();
+
+  showToast(
+    removed + " removed"
+  );
+
+}
+
+
+/* =========================
+   GROCERY CONTROLS
+========================= */
+
+function togglePurchased(index){
+
+  groceries[index].done =
+    !groceries[index].done;
+
+  save();
+
+  render();
+
+}
+
+
+function removeGrocery(index){
+
+  const removed =
+    groceries[index].name;
+
+  groceries.splice(
+    index,
+    1
+  );
+
+  save();
+
+  render();
+
+  showToast(
+    removed + " removed"
+  );
+
+}
+
+
+/*
+  ONLY removes checked items.
+*/
+
+function clearPurchased(){
+
+  const purchasedCount =
+    groceries.filter(
+      item=>item.done
+    ).length;
+
+
+  if(purchasedCount === 0){
+
+    showToast(
+      "No purchased items to clear"
+    );
+
+    return;
+
+  }
+
+
+  groceries =
+    groceries.filter(
+      item=>!item.done
+    );
+
+
+  save();
+
+  render();
+
+  showToast(
+    purchasedCount +
+    " purchased item" +
+    (purchasedCount === 1
+      ? ""
+      : "s"
+    ) +
+    " cleared"
+  );
+
+}
+
+
+/*
+  Clears EVERYTHING.
+*/
+
+function clearAll(){
+
+  if(groceries.length === 0){
+
+    showToast(
+      "Your list is already empty"
+    );
+
+    return;
+
+  }
+
+
+  const confirmed =
+    confirm(
+      "Clear your entire grocery list?"
+    );
+
+
+  if(!confirmed){
+    return;
+  }
+
+
+  groceries = [];
+
+  save();
+
+  render();
+
+  showToast(
+    "Grocery list cleared"
+  );
+
+}
+
+
+/* =========================
+   MEAL FINDER
+========================= */
+
+function setTime(
+  element,
+  time
+){
+
+  cookTime = time;
+
+
+  document
+    .querySelectorAll(".tab")
+    .forEach(tab=>{
+
+      tab.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  element.classList.add(
+    "active"
+  );
+
+
+  findMeals();
+
+}
+
+
+function findMeals(){
+
+  /*
+    Turn inventory into a Set
+    so checking ingredients is
+    reliable and case-insensitive.
+  */
+
+  const kitchen =
+    new Set(
+      inventory.map(normalize)
+    );
+
+
+  const results =
+
+    meals
+
+    .filter(meal=>
+
+      meal.time <= cookTime
+
+    )
+
+    .map(meal=>{
+
+
+      /*
+        Calculate what the user
+        ACTUALLY has.
+      */
+
+      const owned =
+        meal.ingredients.filter(
+          ingredient=>
+
+            kitchen.has(
+              normalize(ingredient)
+            )
+
+        );
+
+
+      /*
+        Calculate what is
+        ACTUALLY missing.
+      */
+
+      const missing =
+        meal.ingredients.filter(
+          ingredient=>
+
+            !kitchen.has(
+              normalize(ingredient)
+            )
+
+        );
+
+
+      return{
+
+        ...meal,
+
+        owned:owned,
+
+        missing:missing,
+
+        score:
+          owned.length /
+          meal.ingredients.length
+
+      };
+
+    })
+
+
+    /*
+      Best kitchen match first.
+    */
+
+    .sort((a,b)=>
+
+      b.score - a.score
+
+      ||
+
+      a.missing.length -
+      b.missing.length
+
+    );
+
+
+  const recipeElement =
+    document.getElementById(
+      "recipeList"
+    );
+
+
+  if(results.length === 0){
+
+    recipeElement.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          ⏱
+        </div>
+
+        No meals fit this time.
+
+        <div class="small"
+             style="margin-top:5px;">
+
+          Try choosing a longer
+          cooking time.
+
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  recipeElement.innerHTML =
+
+    results.map(
+      (meal,index)=>{
+
+
+        const percentage =
+          Math.round(
+            meal.score * 100
+          );
+
+
+        const ownedHTML =
+
+          meal.owned.length
+
+          ?
+
+          meal.owned.map(
+            ingredient=>`
+
+              <span class="pill">
+
+                ✓ ${ingredient}
+
+              </span>
+
+            `
+          ).join("")
+
+          :
+
+          `
+          <span class="small">
+            None yet
+          </span>
+          `;
+
+
+        const missingHTML =
+
+          meal.missing.length
+
+          ?
+
+          meal.missing.map(
+            ingredient=>`
+
+              <span
+                class="pill missing">
+
+                ${ingredient}
+
+              </span>
+
+            `
+          ).join("")
+
+          :
+
+          `
+          <span class="pill">
+
+            ✓ Ready to cook
+
+          </span>
+          `;
+
+
+        const missingButton =
+
+          meal.missing.length
+
+          ?
+
+          `
+
+          <button
+            class="btn primary"
+
+            onclick='
+              addMissing(
+                ${JSON.stringify(
+                  meal.missing
+                )}
+              )
+            '>
+
+            Add ${meal.missing.length}
+            missing
+            ${meal.missing.length === 1
+              ? "item"
+              : "items"
+            }
+
+          </button>
+
+          `
+
+          :
+
+          "";
+
+
+        return`
+
+          <article class="recipe">
+
+            <div class="recipe-top">
+
+              <div>
+
+                <div class="eyebrow">
+
+                  ${index === 0
+                    ? "BEST MATCH"
+                    : "MEAL IDEA"
+                  }
+
+                </div>
+
+                <h3>
+                  ${meal.name}
+                </h3>
+
+              </div>
+
+              <div class="time">
+
+                ⏱ ${meal.time} min
+
+              </div>
+
+            </div>
+
+
+            <div class="progress">
+
+              <div
+                class="progress-bar"
+
+                style="
+                  width:${percentage}%;
+                ">
+              </div>
+
+            </div>
+
+
+            <div class="small">
+
+              You have
+
+              <b>
+                ${meal.owned.length}
+                of
+                ${meal.ingredients.length}
+              </b>
+
+              ingredients
+
+            </div>
+
+
+            <div class="ingredient-label">
+              You have
+            </div>
+
+            <div class="pills">
+              ${ownedHTML}
+            </div>
+
+
+            <div class="ingredient-label">
+              Missing
+            </div>
+
+            <div class="pills">
+              ${missingHTML}
+            </div>
+
+
+            ${missingButton}
+
+          </article>
+
+        `;
+
+      }
+
+    ).join("");
+
+}
+
+
+/* =========================
+   ADD MISSING INGREDIENTS
+========================= */
 
 function addMissing(items){
 
-items.forEach(item=>{
+  let addedCount = 0;
 
-let alreadyExists =
-groceries.some(
-g =>
-g.name.toLowerCase() ===
-item.toLowerCase()
-);
 
-if(!alreadyExists){
+  items.forEach(item=>{
 
-groceries.push({
+    const added =
+      addToGroceryList(
+        item,
+        "Meal Finder"
+      );
 
-name:item,
 
-done:false,
+    if(added){
 
-source:"Meal Finder"
+      addedCount++;
 
-});
+    }
+
+  });
+
+
+  if(addedCount === 0){
+
+    showToast(
+      "Those items are already on your list"
+    );
+
+  }else{
+
+    showToast(
+
+      addedCount +
+      " missing " +
+      (addedCount === 1
+        ? "item"
+        : "items"
+      ) +
+      " added"
+
+    );
+
+  }
 
 }
 
-});
 
-save();
+/* =========================
+   NFC URL SYSTEM
+========================= */
 
-render();
+/*
 
-toast(
-"Missing ingredients added"
-);
+Examples:
 
-}
+?add=Milk
+?add=Eggs
+?add=Bread
 
-
-
-/* REAL NFC URL SUPPORT
-
-Example:
-
-yoursite.com/?add=Milk
-
-yoursite.com/?add=Eggs
+Your existing NFC tags can
+continue using this system.
 
 */
 
 function checkNFCLink(){
 
-const params =
-new URLSearchParams(
-window.location.search
-);
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
 
-const item =
-params.get("add");
 
-if(item){
+  const item =
+    params.get("add");
 
-let exists =
-groceries.some(
-g =>
-g.name.toLowerCase() ===
-item.toLowerCase() &&
-!g.done
-);
 
-if(!exists){
+  if(!item){
+    return;
+  }
 
-groceries.push({
 
-name:item,
+  const added =
+    addToGroceryList(
+      item,
+      "NFC Tag"
+    );
 
-done:false,
 
-source:"NFC Tag"
+  if(added){
 
-});
+    showToast(
+      item +
+      " added from NFC"
+    );
 
-save();
+  }else{
+
+    showToast(
+      item +
+      " is already on your list"
+    );
+
+  }
+
+
+  /*
+    Remove ?add=Milk after processing.
+    This prevents a refresh from
+    accidentally adding it again.
+  */
+
+  window.history.replaceState(
+
+    {},
+
+    document.title,
+
+    window.location.pathname
+
+  );
 
 }
 
-toast(
-item + " added from NFC"
-);
 
-
-/* Remove ?add= from URL
-so refreshing does not add it again */
-
-window.history.replaceState(
-{},
-document.title,
-window.location.pathname
-);
-
-}
-
-}
-
-
+/* =========================
+   START APP
+========================= */
 
 render();
 
