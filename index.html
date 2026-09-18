@@ -2,12 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
 <meta name="theme-color" content="#f7f8f5">
 
 <title>KitchenTap</title>
 
+<!-- QR SCANNER -->
+<script src="https://unpkg.com/html5-qrcode"></script>
+
 <style>
+
 *{
   box-sizing:border-box;
 }
@@ -19,85 +28,132 @@ body{
   color:#151915;
 }
 
-.app{
-  max-width:520px;
-  margin:auto;
-  padding:22px 18px 100px;
-}
-
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:22px;
-}
-
-.logo{
-  font-size:25px;
-  font-weight:800;
-}
-
-.logo span{
-  color:#22a35a;
-}
-
-.subtitle{
-  color:#747b75;
-  font-size:13px;
-  margin-top:3px;
-}
-
-.card{
-  background:white;
-  border-radius:22px;
-  padding:18px;
-  margin-bottom:14px;
-  box-shadow:0 6px 25px rgba(0,0,0,.045);
-}
-
-.hero{
-  background:#172019;
-  color:white;
-  padding:22px;
-}
-
-.hero p{
-  color:#cbd3cd;
-  margin:8px 0 18px;
-  line-height:1.5;
+button,
+input{
+  font:inherit;
 }
 
 button{
   border:none;
-  font:inherit;
   cursor:pointer;
 }
+
+.app{
+  max-width:520px;
+  margin:auto;
+  padding:22px 18px 110px;
+}
+
+/* HEADER */
+
+.topbar{
+  margin-bottom:22px;
+}
+
+.logo{
+  font-size:26px;
+  font-weight:850;
+}
+
+.logo span{
+  color:#20a358;
+}
+
+.subtitle{
+  color:#7b827c;
+  font-size:13px;
+  margin-top:3px;
+}
+
+/* PAGES */
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.back{
+  background:none;
+  color:#168449;
+  padding:0;
+  font-weight:750;
+  margin-bottom:17px;
+}
+
+.sectionTitle{
+  font-size:24px;
+  font-weight:850;
+  margin-bottom:18px;
+}
+
+/* CARDS */
+
+.card{
+  background:#fff;
+  border-radius:22px;
+  padding:18px;
+  margin-bottom:14px;
+  box-shadow:0 7px 25px rgba(0,0,0,.045);
+}
+
+/* HERO */
+
+.hero{
+  background:#172019;
+  color:white;
+  padding:23px;
+}
+
+.hero h2{
+  margin:0;
+  font-size:24px;
+}
+
+.hero p{
+  color:#cbd3cd;
+  line-height:1.5;
+  margin:8px 0 19px;
+}
+
+/* BUTTONS */
 
 .primary{
   width:100%;
   padding:15px;
   border-radius:15px;
-  background:#22a35a;
+  background:#20a358;
   color:white;
-  font-weight:750;
+  font-weight:800;
   font-size:15px;
 }
 
 .secondary{
-  padding:12px 14px;
+  padding:11px 13px;
   border-radius:13px;
   background:#edf7f0;
   color:#168449;
-  font-weight:700;
+  font-weight:750;
 }
 
 .danger{
-  padding:12px 14px;
+  padding:11px 13px;
   border-radius:13px;
   background:#fff0f0;
-  color:#b53b3b;
-  font-weight:700;
+  color:#b43a3a;
+  font-weight:750;
 }
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:13px;
+}
+
+/* HOME */
 
 .grid{
   display:grid;
@@ -115,41 +171,37 @@ button{
 
 .homeIcon{
   font-size:27px;
-  margin-bottom:12px;
+  margin-bottom:11px;
 }
 
 .homeTitle{
-  font-weight:800;
   font-size:16px;
+  font-weight:850;
 }
 
 .homeSmall{
-  color:#7c837d;
+  color:#7b827c;
   font-size:12px;
   margin-top:5px;
 }
 
-.sectionTitle{
-  font-size:22px;
-  font-weight:800;
-  margin:4px 0 18px;
+/* INPUT */
+
+input[type=text]{
+  width:100%;
+  border:1px solid #e1e6e1;
+  padding:15px;
+  border-radius:14px;
+  outline:none;
+  font-size:16px;
+  margin-bottom:10px;
 }
 
-.back{
-  background:none;
-  color:#168449;
-  padding:0;
-  font-weight:700;
-  margin-bottom:16px;
+input[type=text]:focus{
+  border-color:#20a358;
 }
 
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
+/* LIST */
 
 .row{
   display:flex;
@@ -165,39 +217,64 @@ button{
 }
 
 .itemName{
-  font-weight:650;
+  font-weight:700;
 }
 
 .small{
-  font-size:12px;
   color:#7b827c;
+  font-size:12px;
 }
 
-input[type=text]{
-  width:100%;
-  padding:15px;
-  border:1px solid #e2e7e2;
-  border-radius:14px;
-  font-size:16px;
-  outline:none;
-  margin-bottom:10px;
+.checkbox{
+  width:22px;
+  height:22px;
 }
 
-input[type=text]:focus{
-  border-color:#22a35a;
+.groceryDone .itemName{
+  text-decoration:line-through;
+  opacity:.5;
 }
+
+.empty{
+  text-align:center;
+  color:#858b86;
+  padding:24px 10px;
+}
+
+/* QUICK ADD */
 
 .quickGrid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:1fr 1fr;
   gap:9px;
 }
 
 .quick{
-  padding:13px;
-  border-radius:13px;
+  padding:14px 10px;
+  border-radius:14px;
   background:#f1f5f1;
-  font-weight:700;
+  font-weight:750;
+}
+
+/* MEALS */
+
+.timeFilters{
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  margin-bottom:16px;
+}
+
+.timeFilter{
+  padding:9px 13px;
+  border-radius:20px;
+  background:#e9eee9;
+  white-space:nowrap;
+}
+
+.timeFilter.active{
+  background:#172019;
+  color:white;
 }
 
 .meal{
@@ -216,19 +293,19 @@ input[type=text]:focus{
 
 .mealName{
   font-size:17px;
-  font-weight:800;
+  font-weight:850;
 }
 
 .time{
   color:#168449;
-  font-weight:700;
   font-size:13px;
+  font-weight:750;
 }
 
 .ingredients{
   margin-top:14px;
   font-size:14px;
-  line-height:1.9;
+  line-height:2;
 }
 
 .have{
@@ -236,142 +313,85 @@ input[type=text]:focus{
 }
 
 .missing{
-  color:#b46b1c;
+  color:#a96518;
 }
 
-.mealActions{
-  margin-top:12px;
+/* SCANNER */
+
+.scannerIntro{
+  text-align:center;
 }
 
-.timeFilters{
-  display:flex;
-  gap:7px;
-  overflow:auto;
-  margin-bottom:16px;
+.scanIcon{
+  font-size:50px;
+  margin:5px 0 10px;
 }
 
-.timeFilter{
-  padding:9px 13px;
-  border-radius:20px;
-  white-space:nowrap;
-  background:#e9eee9;
-}
-
-.timeFilter.active{
-  background:#172019;
-  color:white;
-}
-
-.groceryDone .itemName{
-  text-decoration:line-through;
-  opacity:.5;
-}
-
-.checkbox{
-  width:22px;
-  height:22px;
-}
-
-.actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:14px;
-}
-
-/* MULTI SCAN */
-
-.scannerWrap{
-  position:relative;
+.scannerBox{
+  background:#111;
   overflow:hidden;
-  background:#101310;
   border-radius:22px;
-  min-height:320px;
+  margin-bottom:14px;
+  min-height:300px;
 }
 
-#scannerVideo{
-  display:block;
+#reader{
   width:100%;
-  min-height:320px;
-  object-fit:cover;
 }
 
-.scanOverlay{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  pointer-events:none;
-}
-
-.scanBox{
-  width:220px;
-  height:220px;
-  border:3px solid white;
-  border-radius:24px;
-  box-shadow:0 0 0 999px rgba(0,0,0,.25);
+#reader video{
+  object-fit:cover !important;
 }
 
 .scanStatus{
-  margin-top:12px;
-  padding:12px;
-  border-radius:14px;
+  padding:14px;
+  border-radius:15px;
+  text-align:center;
+  font-weight:750;
   background:#edf7f0;
   color:#168449;
-  font-weight:700;
+  margin-bottom:13px;
+}
+
+.scanSuccess{
   text-align:center;
+  padding:28px 15px;
 }
 
-.scanItem{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 0;
-  border-bottom:1px solid #edf0ed;
-}
-
-.scanItem:last-child{
-  border-bottom:none;
-}
-
-.removeScan{
-  background:#fff0f0;
-  color:#b53b3b;
-  width:31px;
-  height:31px;
+.successIcon{
+  width:70px;
+  height:70px;
   border-radius:50%;
-  font-weight:800;
-}
-
-.counter{
-  background:#172019;
+  background:#20a358;
   color:white;
-  padding:7px 11px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:750;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:34px;
+  margin:0 auto 15px;
 }
 
-.empty{
-  color:#858b86;
-  text-align:center;
-  padding:24px 10px;
+.scanItemName{
+  font-size:23px;
+  font-weight:850;
+  margin-bottom:5px;
 }
+
+/* TOAST */
 
 .toast{
   position:fixed;
-  bottom:28px;
   left:50%;
+  bottom:28px;
   transform:translateX(-50%) translateY(100px);
   background:#172019;
   color:white;
   padding:13px 18px;
   border-radius:30px;
   font-size:13px;
-  font-weight:700;
+  font-weight:750;
   transition:.25s;
-  z-index:1000;
+  z-index:9999;
   max-width:90%;
   text-align:center;
 }
@@ -381,10 +401,13 @@ input[type=text]:focus{
 }
 
 @media(max-width:380px){
+
   .grid{
     grid-template-columns:1fr;
   }
+
 }
+
 </style>
 </head>
 
@@ -397,50 +420,142 @@ input[type=text]:focus{
 <section id="home" class="page active">
 
   <div class="topbar">
-    <div>
-      <div class="logo">Kitchen<span>Tap</span></div>
-      <div class="subtitle">Your kitchen. Smarter.</div>
+
+    <div class="logo">
+      Kitchen<span>Tap</span>
     </div>
+
+    <div class="subtitle">
+      Your kitchen. Smarter.
+    </div>
+
   </div>
 
+
   <div class="card hero">
-    <h2 style="margin:0;">What's running low?</h2>
-    <p>Tap, scan or select what you need and KitchenTap will build your grocery list.</p>
-    <button class="primary" onclick="openPage('scanner')">
-      📷 Start Multi Scan
+
+    <h2>Running low?</h2>
+
+    <p>
+      Scan a KitchenTap QR code and add the item
+      straight to your grocery list.
+    </p>
+
+    <button
+      class="primary"
+      onclick="openScanner()"
+    >
+      📷 Scan Grocery Item
     </button>
+
   </div>
+
 
   <div class="grid">
 
-    <button class="homeButton" onclick="openPage('scanner')">
-      <div class="homeIcon">📷</div>
-      <div class="homeTitle">Multi Scan</div>
-      <div class="homeSmall">Scan several items</div>
+    <button
+      class="homeButton"
+      onclick="openScanner()"
+    >
+
+      <div class="homeIcon">
+        📷
+      </div>
+
+      <div class="homeTitle">
+        Scan Item
+      </div>
+
+      <div class="homeSmall">
+        Scan a KitchenTap QR
+      </div>
+
     </button>
 
-    <button class="homeButton" onclick="openPage('groceries')">
-      <div class="homeIcon">🛒</div>
-      <div class="homeTitle">Grocery List</div>
-      <div class="homeSmall" id="groceryCountHome">0 items</div>
+
+    <button
+      class="homeButton"
+      onclick="openPage('groceries')"
+    >
+
+      <div class="homeIcon">
+        🛒
+      </div>
+
+      <div class="homeTitle">
+        Grocery List
+      </div>
+
+      <div
+        class="homeSmall"
+        id="groceryCountHome"
+      >
+        0 items
+      </div>
+
     </button>
 
-    <button class="homeButton" onclick="openPage('kitchen')">
-      <div class="homeIcon">🏠</div>
-      <div class="homeTitle">My Kitchen</div>
-      <div class="homeSmall" id="kitchenCountHome">0 items</div>
+
+    <button
+      class="homeButton"
+      onclick="openPage('kitchen')"
+    >
+
+      <div class="homeIcon">
+        🏠
+      </div>
+
+      <div class="homeTitle">
+        My Kitchen
+      </div>
+
+      <div
+        class="homeSmall"
+        id="kitchenCountHome"
+      >
+        0 items
+      </div>
+
     </button>
 
-    <button class="homeButton" onclick="openPage('meals')">
-      <div class="homeIcon">🍽️</div>
-      <div class="homeTitle">Meal Finder</div>
-      <div class="homeSmall">Cook with what you have</div>
+
+    <button
+      class="homeButton"
+      onclick="openPage('meals')"
+    >
+
+      <div class="homeIcon">
+        🍽️
+      </div>
+
+      <div class="homeTitle">
+        Meal Finder
+      </div>
+
+      <div class="homeSmall">
+        Cook with what you have
+      </div>
+
     </button>
 
-    <button class="homeButton" onclick="openPage('quick')">
-      <div class="homeIcon">➕</div>
-      <div class="homeTitle">Quick Add</div>
-      <div class="homeSmall">Add common groceries</div>
+
+    <button
+      class="homeButton"
+      onclick="openPage('quick')"
+    >
+
+      <div class="homeIcon">
+        ➕
+      </div>
+
+      <div class="homeTitle">
+        Quick Add
+      </div>
+
+      <div class="homeSmall">
+        Common groceries
+      </div>
+
     </button>
 
   </div>
@@ -448,77 +563,142 @@ input[type=text]:focus{
 </section>
 
 
-<!-- MULTI SCAN -->
+<!-- SINGLE SCANNER -->
 
 <section id="scanner" class="page">
 
-  <button class="back" onclick="closeScanner()">← Home</button>
+  <button
+    class="back"
+    onclick="closeScanner()"
+  >
+    ← Home
+  </button>
 
-  <div style="display:flex;justify-content:space-between;align-items:center;">
-    <div class="sectionTitle">Multi Scan</div>
-    <div class="counter" id="scanCounter">0 scanned</div>
+
+  <div class="sectionTitle">
+    Scan Item
   </div>
 
-  <div class="scannerWrap">
 
-    <video id="scannerVideo" playsinline muted></video>
+  <div
+    id="scannerStart"
+    class="card scannerIntro"
+  >
 
-    <div class="scanOverlay">
-      <div class="scanBox"></div>
+    <div class="scanIcon">
+      📷
+    </div>
+
+    <h2>
+      Ready to scan?
+    </h2>
+
+    <p class="small">
+      Point your iPhone at one of your
+      KitchenTap QR codes.
+    </p>
+
+    <button
+      class="primary"
+      onclick="startScanner()"
+    >
+      Open Camera
+    </button>
+
+  </div>
+
+
+  <div
+    id="scannerCamera"
+    style="display:none;"
+  >
+
+    <div class="scannerBox">
+
+      <div id="reader"></div>
+
+    </div>
+
+    <div
+      id="scanStatus"
+      class="scanStatus"
+    >
+      Point camera at QR code
     </div>
 
   </div>
 
-  <div id="scanStatus" class="scanStatus">
-    Tap Start Camera
-  </div>
 
-  <div class="actions">
-    <button class="primary" id="startScanButton" onclick="startScanner()">
-      📷 Start Camera
-    </button>
-  </div>
+  <div
+    id="scannerSuccess"
+    class="card scanSuccess"
+    style="display:none;"
+  >
 
-  <div class="card" style="margin-top:15px;">
+    <div class="successIcon">
+      ✓
+    </div>
 
-    <div style="font-weight:800;margin-bottom:5px;">
-      Scanned Items
+    <div
+      id="scannedItemName"
+      class="scanItemName"
+    >
+      Milk
     </div>
 
     <div class="small">
-      Keep scanning. Add everything when you're finished.
+      Added to Grocery List
     </div>
 
-    <div id="scannedItems"></div>
 
-  </div>
+    <div
+      style="margin-top:20px;"
+    >
 
-  <button class="primary" onclick="finishMultiScan()">
-    Add All to Grocery List
-  </button>
+      <button
+        class="primary"
+        onclick="scanAnother()"
+      >
+        Scan Another Item
+      </button>
 
-  <div class="actions">
+    </div>
 
-    <button class="secondary" onclick="undoLastScan()">
-      ↶ Undo
-    </button>
 
-    <button class="danger" onclick="clearScans()">
-      Clear
-    </button>
+    <div
+      style="margin-top:9px;"
+    >
+
+      <button
+        class="secondary"
+        onclick="openPage('groceries')"
+      >
+        View Grocery List
+      </button>
+
+    </div>
 
   </div>
 
 </section>
 
 
-<!-- GROCERY LIST -->
+<!-- GROCERIES -->
 
 <section id="groceries" class="page">
 
-  <button class="back" onclick="openPage('home')">← Home</button>
+  <button
+    class="back"
+    onclick="openPage('home')"
+  >
+    ← Home
+  </button>
 
-  <div class="sectionTitle">Grocery List</div>
+
+  <div class="sectionTitle">
+    Grocery List
+  </div>
+
 
   <div class="card">
 
@@ -526,28 +706,50 @@ input[type=text]:focus{
       id="groceryInput"
       type="text"
       placeholder="Add an item..."
-      onkeydown="if(event.key==='Enter') manualAddGrocery()"
+      onkeydown="
+        if(event.key==='Enter')
+        manualAddGrocery()
+      "
     >
 
-    <button class="primary" onclick="manualAddGrocery()">
+    <button
+      class="primary"
+      onclick="manualAddGrocery()"
+    >
       Add Item
     </button>
 
   </div>
 
-  <div class="card" id="groceryList"></div>
+
+  <div
+    class="card"
+    id="groceryList"
+  ></div>
+
 
   <div class="actions">
 
-    <button class="secondary" onclick="movePurchasedToKitchen()">
+    <button
+      class="secondary"
+      onclick="movePurchasedToKitchen()"
+    >
       Put Purchased in Kitchen
     </button>
 
-    <button class="secondary" onclick="clearPurchased()">
+
+    <button
+      class="secondary"
+      onclick="clearPurchased()"
+    >
       Clear Purchased
     </button>
 
-    <button class="danger" onclick="clearAllGroceries()">
+
+    <button
+      class="danger"
+      onclick="clearAllGroceries()"
+    >
       Clear All
     </button>
 
@@ -556,13 +758,22 @@ input[type=text]:focus{
 </section>
 
 
-<!-- MY KITCHEN -->
+<!-- KITCHEN -->
 
 <section id="kitchen" class="page">
 
-  <button class="back" onclick="openPage('home')">← Home</button>
+  <button
+    class="back"
+    onclick="openPage('home')"
+  >
+    ← Home
+  </button>
 
-  <div class="sectionTitle">My Kitchen</div>
+
+  <div class="sectionTitle">
+    My Kitchen
+  </div>
+
 
   <div class="card">
 
@@ -570,16 +781,26 @@ input[type=text]:focus{
       id="kitchenInput"
       type="text"
       placeholder="Add kitchen item..."
-      onkeydown="if(event.key==='Enter') addKitchenItem()"
+      onkeydown="
+        if(event.key==='Enter')
+        addKitchenItem()
+      "
     >
 
-    <button class="primary" onclick="addKitchenItem()">
+    <button
+      class="primary"
+      onclick="addKitchenItem()"
+    >
       Add to Kitchen
     </button>
 
   </div>
 
-  <div class="card" id="kitchenList"></div>
+
+  <div
+    class="card"
+    id="kitchenList"
+  ></div>
 
 </section>
 
@@ -588,13 +809,25 @@ input[type=text]:focus{
 
 <section id="quick" class="page">
 
-  <button class="back" onclick="openPage('home')">← Home</button>
+  <button
+    class="back"
+    onclick="openPage('home')"
+  >
+    ← Home
+  </button>
 
-  <div class="sectionTitle">Quick Add</div>
+
+  <div class="sectionTitle">
+    Quick Add
+  </div>
+
 
   <div class="card">
 
-    <div class="quickGrid" id="quickGrid"></div>
+    <div
+      class="quickGrid"
+      id="quickGrid"
+    ></div>
 
   </div>
 
@@ -605,29 +838,51 @@ input[type=text]:focus{
 
 <section id="meals" class="page">
 
-  <button class="back" onclick="openPage('home')">← Home</button>
+  <button
+    class="back"
+    onclick="openPage('home')"
+  >
+    ← Home
+  </button>
 
-  <div class="sectionTitle">Meal Finder</div>
+
+  <div class="sectionTitle">
+    Meal Finder
+  </div>
+
 
   <div class="timeFilters">
 
-    <button class="timeFilter active" onclick="setCookTime(60,this)">
+    <button
+      class="timeFilter active"
+      onclick="setCookTime(60,this)"
+    >
       All
     </button>
 
-    <button class="timeFilter" onclick="setCookTime(15,this)">
+    <button
+      class="timeFilter"
+      onclick="setCookTime(15,this)"
+    >
       15 min
     </button>
 
-    <button class="timeFilter" onclick="setCookTime(20,this)">
+    <button
+      class="timeFilter"
+      onclick="setCookTime(20,this)"
+    >
       20 min
     </button>
 
-    <button class="timeFilter" onclick="setCookTime(30,this)">
+    <button
+      class="timeFilter"
+      onclick="setCookTime(30,this)"
+    >
       30 min
     </button>
 
   </div>
+
 
   <div id="mealResults"></div>
 
@@ -635,23 +890,30 @@ input[type=text]:focus{
 
 </div>
 
-<div id="toast" class="toast"></div>
+
+<div
+  id="toast"
+  class="toast"
+></div>
 
 
 <script>
 
-/* -----------------------------
+/* ==============================
 DATA
------------------------------ */
+============================== */
 
 const quickItems = [
+
   "Milk",
   "Eggs",
   "Bread",
   "Chicken breast",
   "Rice",
   "Coffee"
+
 ];
+
 
 const meals = [
 
@@ -727,8 +989,15 @@ const meals = [
 
 
 let inventory =
-  JSON.parse(localStorage.getItem("kitchentap_inventory"))
+
+  JSON.parse(
+    localStorage.getItem(
+      "kitchentap_inventory"
+    )
+  )
+
   ||
+
   [
     "Rice",
     "Chicken breast",
@@ -742,21 +1011,29 @@ let inventory =
 
 
 let groceries =
-  JSON.parse(localStorage.getItem("kitchentap_groceries"))
+
+  JSON.parse(
+    localStorage.getItem(
+      "kitchentap_groceries"
+    )
+  )
+
   || [];
 
 
 let cookTime = 60;
 
 
-/* -----------------------------
+/* ==============================
 HELPERS
------------------------------ */
+============================== */
 
 function normalize(value){
+
   return String(value)
     .trim()
     .toLowerCase();
+
 }
 
 
@@ -766,6 +1043,7 @@ function save(){
     "kitchentap_inventory",
     JSON.stringify(inventory)
   );
+
 
   localStorage.setItem(
     "kitchentap_groceries",
@@ -778,34 +1056,63 @@ function save(){
 function showToast(message){
 
   const toast =
-    document.getElementById("toast");
+    document.getElementById(
+      "toast"
+    );
 
-  toast.textContent = message;
 
-  toast.classList.add("show");
+  toast.textContent =
+    message;
+
+
+  toast.classList.add(
+    "show"
+  );
+
 
   setTimeout(()=>{
-    toast.classList.remove("show");
+
+    toast.classList.remove(
+      "show"
+    );
+
   },2200);
 
 }
 
 
-/* -----------------------------
+/* ==============================
 NAVIGATION
------------------------------ */
+============================== */
 
 function openPage(id){
+
+  if(
+    id !== "scanner"
+  ){
+
+    stopScanner();
+
+  }
+
 
   document
     .querySelectorAll(".page")
     .forEach(page=>{
-      page.classList.remove("active");
+
+      page.classList.remove(
+        "active"
+      );
+
     });
+
 
   document
     .getElementById(id)
-    .classList.add("active");
+    .classList.add(
+      "active"
+    );
+
 
   window.scrollTo(0,0);
 
@@ -814,16 +1121,18 @@ function openPage(id){
 }
 
 
-/* -----------------------------
-GROCERIES
------------------------------ */
+/* ==============================
+GROCERY LIST
+============================== */
 
 function addToGroceryList(
   name,
   source="Manual"
 ){
 
-  name = String(name).trim();
+  name =
+    String(name).trim();
+
 
   if(!name)
     return false;
@@ -831,11 +1140,15 @@ function addToGroceryList(
 
   const existing =
     groceries.find(item =>
+
       normalize(item.name)
       ===
       normalize(name)
+
       &&
+
       !item.done
+
     );
 
 
@@ -844,9 +1157,11 @@ function addToGroceryList(
 
 
   groceries.push({
+
     name:name,
     done:false,
     source:source
+
   });
 
 
@@ -865,8 +1180,10 @@ function manualAddGrocery(){
       "groceryInput"
     );
 
+
   const name =
     input.value.trim();
+
 
   if(!name)
     return;
@@ -888,7 +1205,8 @@ function manualAddGrocery(){
   }else{
 
     showToast(
-      name + " is already on your list"
+      name +
+      " is already on your list"
     );
 
   }
@@ -912,7 +1230,10 @@ function toggleGrocery(index){
 
 function deleteGrocery(index){
 
-  groceries.splice(index,1);
+  groceries.splice(
+    index,
+    1
+  );
 
   save();
   render();
@@ -925,6 +1246,7 @@ function putInKitchen(index){
   const grocery =
     groceries[index];
 
+
   if(!grocery)
     return;
 
@@ -933,15 +1255,17 @@ function putInKitchen(index){
     grocery.name;
 
 
-  const alreadyInKitchen =
+  const exists =
     inventory.some(item =>
+
       normalize(item)
       ===
       normalize(itemName)
+
     );
 
 
-  if(!alreadyInKitchen){
+  if(!exists){
 
     inventory.push(
       itemName
@@ -958,24 +1282,12 @@ function putInKitchen(index){
 
   save();
   render();
-  findMeals();
 
 
-  if(alreadyInKitchen){
-
-    showToast(
-      itemName +
-      " was already in your kitchen"
-    );
-
-  }else{
-
-    showToast(
-      itemName +
-      " moved to your kitchen"
-    );
-
-  }
+  showToast(
+    itemName +
+    " moved to kitchen"
+  );
 
 }
 
@@ -1010,6 +1322,7 @@ function movePurchasedToKitchen(){
       const exists =
         inventory.some(
           item =>
+
             normalize(item)
             ===
             normalize(
@@ -1040,18 +1353,24 @@ function movePurchasedToKitchen(){
 
   save();
   render();
-  findMeals();
 
 
   showToast(
+
     addedCount +
+
     " item" +
+
     (
       addedCount===1
       ? ""
       : "s"
-    ) +
-    " moved to your kitchen"
+    )
+
+    +
+
+    " moved to kitchen"
+
   );
 
 }
@@ -1088,9 +1407,9 @@ function clearAllGroceries(){
 }
 
 
-/* -----------------------------
-KITCHEN
------------------------------ */
+/* ==============================
+MY KITCHEN
+============================== */
 
 function addKitchenItem(){
 
@@ -1099,8 +1418,10 @@ function addKitchenItem(){
       "kitchenInput"
     );
 
+
   const name =
     input.value.trim();
+
 
   if(!name)
     return;
@@ -1109,6 +1430,7 @@ function addKitchenItem(){
   const exists =
     inventory.some(
       item =>
+
         normalize(item)
         ===
         normalize(name)
@@ -1135,7 +1457,7 @@ function addKitchenItem(){
 
   save();
   render();
-  findMeals();
+
 
   showToast(
     name +
@@ -1154,14 +1476,44 @@ function removeKitchenItem(index){
 
   save();
   render();
-  findMeals();
 
 }
 
 
-/* -----------------------------
+/* ==============================
+QUICK ADD
+============================== */
+
+function quickAdd(item){
+
+  const added =
+    addToGroceryList(
+      item,
+      "Quick Add"
+    );
+
+
+  if(added){
+
+    showToast(
+      item + " added"
+    );
+
+  }else{
+
+    showToast(
+      item +
+      " is already listed"
+    );
+
+  }
+
+}
+
+
+/* ==============================
 MEALS
------------------------------ */
+============================== */
 
 function setCookTime(
   time,
@@ -1176,9 +1528,11 @@ function setCookTime(
       ".timeFilter"
     )
     .forEach(btn=>{
+
       btn.classList.remove(
         "active"
       );
+
     });
 
 
@@ -1192,12 +1546,43 @@ function setCookTime(
 }
 
 
+function addSingleIngredient(
+  ingredient
+){
+
+  const added =
+    addToGroceryList(
+      ingredient,
+      "Meal"
+    );
+
+
+  if(added){
+
+    showToast(
+      ingredient +
+      " added"
+    );
+
+  }else{
+
+    showToast(
+      ingredient +
+      " already listed"
+    );
+
+  }
+
+}
+
+
 function addMissingIngredients(
   mealIndex
 ){
 
   const meal =
     meals[mealIndex];
+
 
   const kitchen =
     new Set(
@@ -1210,6 +1595,7 @@ function addMissingIngredients(
   const missing =
     meal.ingredients.filter(
       ingredient =>
+
         !kitchen.has(
           normalize(
             ingredient
@@ -1240,45 +1626,22 @@ function addMissingIngredients(
 
 
   showToast(
+
     count +
+
     " missing item" +
+
     (
       count===1
       ? ""
       : "s"
-    ) +
+    )
+
+    +
+
     " added"
+
   );
-
-}
-
-
-function addSingleIngredient(
-  ingredient
-){
-
-  const added =
-    addToGroceryList(
-      ingredient,
-      "Meal"
-    );
-
-
-  if(added){
-
-    showToast(
-      ingredient +
-      " added"
-    );
-
-  }else{
-
-    showToast(
-      ingredient +
-      " is already listed"
-    );
-
-  }
 
 }
 
@@ -1302,6 +1665,7 @@ function findMeals(){
         const owned =
           meal.ingredients.filter(
             ingredient =>
+
               kitchen.has(
                 normalize(
                   ingredient
@@ -1313,6 +1677,7 @@ function findMeals(){
         const missing =
           meal.ingredients.filter(
             ingredient =>
+
               !kitchen.has(
                 normalize(
                   ingredient
@@ -1322,14 +1687,19 @@ function findMeals(){
 
 
         return{
+
           ...meal,
+
           originalIndex:index,
-          owned,
-          missing,
+
+          owned:owned,
+
+          missing:missing,
+
           score:
-            owned.length
-            /
+            owned.length /
             meal.ingredients.length
+
         };
 
       }
@@ -1337,15 +1707,17 @@ function findMeals(){
 
     .filter(
       meal =>
-        meal.time<=cookTime
+        meal.time <= cookTime
     )
 
     .sort(
       (a,b)=>
+
         b.score-a.score
+
         ||
-        a.missing.length
-        -
+
+        a.missing.length -
         b.missing.length
     );
 
@@ -1367,6 +1739,7 @@ function findMeals(){
           "div"
         );
 
+
       div.className="meal";
 
 
@@ -1384,31 +1757,43 @@ function findMeals(){
             );
 
 
-          ingredientsHTML +=
-            have
-            ?
-            `
-            <div class="have">
-              ✓ ${ingredient}
-            </div>
-            `
-            :
-            `
-            <div class="missing">
-              + ${ingredient}
-              <button
-                class="secondary"
-                style="
-                  padding:5px 9px;
-                  margin-left:5px;
-                  font-size:11px;
-                "
-                onclick='addSingleIngredient(${JSON.stringify(ingredient)})'
-              >
-                Add
-              </button>
-            </div>
+          if(have){
+
+            ingredientsHTML += `
+
+              <div class="have">
+
+                ✓ ${ingredient}
+
+              </div>
+
             `;
+
+          }else{
+
+            ingredientsHTML += `
+
+              <div class="missing">
+
+                + ${ingredient}
+
+                <button
+                  class="secondary"
+                  style="
+                    padding:5px 9px;
+                    font-size:11px;
+                    margin-left:5px;
+                  "
+                  onclick='addSingleIngredient(${JSON.stringify(ingredient)})'
+                >
+                  Add
+                </button>
+
+              </div>
+
+            `;
+
+          }
 
         }
       );
@@ -1425,16 +1810,24 @@ function findMeals(){
             </div>
 
             <div class="small">
+
               ${meal.owned.length}
+
               of
+
               ${meal.ingredients.length}
-              ingredients in your kitchen
+
+              ingredients available
+
             </div>
 
           </div>
 
+
           <div class="time">
+
             ${meal.time} min
+
           </div>
 
         </div>
@@ -1447,26 +1840,46 @@ function findMeals(){
         </div>
 
 
-        <div class="mealActions">
+        <div
+          style="margin-top:13px;"
+        >
 
           ${
             meal.missing.length
+
             ?
+
             `
+
             <button
               class="secondary"
-              onclick="addMissingIngredients(${meal.originalIndex})"
+              onclick="
+                addMissingIngredients(
+                  ${meal.originalIndex}
+                )
+              "
             >
-              + Add ${meal.missing.length} Missing
+
+              + Add
+              ${meal.missing.length}
+              Missing
+
             </button>
+
             `
+
             :
+
             `
+
             <button
               class="secondary"
             >
+
               ✓ Ready to Cook
+
             </button>
+
             `
           }
 
@@ -1485,19 +1898,76 @@ function findMeals(){
 }
 
 
-/* -----------------------------
-MULTI SCAN
------------------------------ */
+/* ==============================
+SINGLE QR SCANNER
+============================== */
 
-let scannerStream=null;
-let scanTimer=null;
-let detector=null;
-let scannedItems=[];
-let lastDetected="";
-let lastDetectedTime=0;
+let qrScanner=null;
+let scannerRunning=false;
+let processingScan=false;
 
+
+/* OPEN SCANNER PAGE */
+
+function openScanner(){
+
+  openPage(
+    "scanner"
+  );
+
+
+  document
+    .getElementById(
+      "scannerStart"
+    )
+    .style.display =
+    "block";
+
+
+  document
+    .getElementById(
+      "scannerCamera"
+    )
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById(
+      "scannerSuccess"
+    )
+    .style.display =
+    "none";
+
+}
+
+
+/* START CAMERA */
 
 async function startScanner(){
+
+  if(scannerRunning)
+    return;
+
+
+  processingScan=false;
+
+
+  document
+    .getElementById(
+      "scannerStart"
+    )
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById(
+      "scannerCamera"
+    )
+    .style.display =
+    "block";
+
 
   const status =
     document.getElementById(
@@ -1505,99 +1975,66 @@ async function startScanner(){
     );
 
 
-  if(
-    !navigator.mediaDevices
-    ||
-    !navigator.mediaDevices
-      .getUserMedia
-  ){
-
-    status.textContent =
-      "Camera access is not supported in this browser.";
-
-    return;
-
-  }
-
-
-  if(
-    !("BarcodeDetector" in window)
-  ){
-
-    status.textContent =
-      "This browser does not support the built-in QR scanner. Your regular KitchenTap QR links still work with the iPhone Camera.";
-
-    showToast(
-      "Multi Scan isn't supported by this browser yet"
-    );
-
-    return;
-
-  }
+  status.textContent =
+    "Starting camera...";
 
 
   try{
 
-    detector =
-      new BarcodeDetector({
-        formats:["qr_code"]
-      });
-
-
-    scannerStream =
-      await navigator
-        .mediaDevices
-        .getUserMedia({
-
-          video:{
-            facingMode:{
-              ideal:"environment"
-            }
-          },
-
-          audio:false
-
-        });
-
-
-    const video =
-      document.getElementById(
-        "scannerVideo"
+    qrScanner =
+      new Html5Qrcode(
+        "reader"
       );
 
 
-    video.srcObject =
-      scannerStream;
+    const config={
+
+      fps:10,
+
+      qrbox:{
+        width:230,
+        height:230
+      },
+
+      aspectRatio:1.0
+
+    };
 
 
-    await video.play();
+    await qrScanner.start(
+
+      {
+        facingMode:
+          "environment"
+      },
+
+      config,
+
+      onScanSuccess,
+
+      ()=>{}
+
+    );
+
+
+    scannerRunning=true;
 
 
     status.textContent =
-      "Scanning — point at a KitchenTap QR";
-
-
-    document
-      .getElementById(
-        "startScanButton"
-      )
-      .textContent =
-      "Camera Running";
-
-
-    scanTimer =
-      setInterval(
-        scanFrame,
-        350
-      );
+      "Point camera at a KitchenTap QR";
 
 
   }catch(error){
 
     console.error(error);
 
+
+    scannerRunning=false;
+
+
     status.textContent =
-      "Camera couldn't start. Check Safari camera permission.";
+      "Camera couldn't start. Make sure Safari has camera permission.";
+
 
     showToast(
       "Camera permission needed"
@@ -1608,85 +2045,36 @@ async function startScanner(){
 }
 
 
-async function scanFrame(){
+/* QR FOUND */
 
-  if(
-    !detector
-    ||
-    !scannerStream
-  )
+async function onScanSuccess(
+  decodedText
+){
+
+  if(processingScan)
     return;
 
 
-  const video =
-    document.getElementById(
-      "scannerVideo"
-    );
+  processingScan=true;
 
 
-  if(
-    video.readyState<2
-  )
-    return;
+  let item="";
 
 
-  try{
+  /*
+    Expected QR:
 
-    const codes =
-      await detector.detect(
-        video
-      );
-
-
-    if(!codes.length)
-      return;
-
-
-    const value =
-      codes[0].rawValue;
-
-
-    processScannedQR(
-      value
-    );
-
-
-  }catch(error){
-
-    console.log(
-      "Scan frame error:",
-      error
-    );
-
-  }
-
-}
-
-
-function processScannedQR(value){
-
-  const now=Date.now();
-
-
-  if(
-    value===lastDetected
-    &&
-    now-lastDetectedTime<2000
-  )
-    return;
-
-
-  lastDetected=value;
-  lastDetectedTime=now;
-
-
-  let item=null;
-
+    https://curiousabel.github.io/
+    NFC-Grocery-/?add=Milk
+  */
 
   try{
 
     const url =
-      new URL(value);
+      new URL(
+        decodedText
+      );
+
 
     item =
       url.searchParams.get(
@@ -1696,17 +2084,18 @@ function processScannedQR(value){
   }catch(error){
 
     /*
-    Allows QR codes containing
-    only the item name too.
+      Also allows a QR
+      containing only:
+
+      Milk
     */
 
     if(
-      value
-      &&
-      value.length<100
+      decodedText.length < 100
     ){
 
-      item=value;
+      item =
+        decodedText;
 
     }
 
@@ -1715,9 +2104,21 @@ function processScannedQR(value){
 
   if(!item){
 
+    processingScan=false;
+
+
+    document
+      .getElementById(
+        "scanStatus"
+      )
+      .textContent =
+      "That isn't a KitchenTap item QR";
+
+
     showToast(
-      "Not a KitchenTap item"
+      "QR not recognized"
     );
+
 
     return;
 
@@ -1728,282 +2129,165 @@ function processScannedQR(value){
     String(item).trim();
 
 
-  const alreadyScanned =
-    scannedItems.some(
-      existing =>
-        normalize(existing)
-        ===
-        normalize(item)
+  /*
+    STOP CAMERA AFTER
+    ONE SUCCESSFUL SCAN
+  */
+
+  await stopScanner();
+
+
+  const added =
+    addToGroceryList(
+      item,
+      "QR Scan"
     );
-
-
-  if(alreadyScanned){
-
-    showToast(
-      item +
-      " already scanned"
-    );
-
-    return;
-
-  }
-
-
-  scannedItems.push(
-    item
-  );
-
-
-  renderScannedItems();
 
 
   document
     .getElementById(
-      "scanStatus"
+      "scannerCamera"
+    )
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById(
+      "scannerSuccess"
+    )
+    .style.display =
+    "block";
+
+
+  document
+    .getElementById(
+      "scannedItemName"
     )
     .textContent =
-    "✓ " +
-    item +
-    " scanned";
+    item;
 
+
+  if(added){
+
+    document
+      .querySelector(
+        "#scannerSuccess .small"
+      )
+      .textContent =
+      "Added to Grocery List";
+
+
+    showToast(
+      "✓ " +
+      item +
+      " added"
+    );
+
+  }else{
+
+    document
+      .querySelector(
+        "#scannerSuccess .small"
+      )
+      .textContent =
+      "Already on Grocery List";
+
+
+    showToast(
+      item +
+      " is already listed"
+    );
+
+  }
+
+
+  /*
+    Small vibration confirmation
+    where supported.
+  */
 
   if(
     navigator.vibrate
   ){
 
-    navigator.vibrate(80);
+    navigator.vibrate(
+      80
+    );
 
   }
-
-
-  showToast(
-    "✓ " + item
-  );
 
 }
 
 
-function renderScannedItems(){
+/* STOP CAMERA */
 
-  const container =
-    document.getElementById(
-      "scannedItems"
-    );
-
-
-  const counter =
-    document.getElementById(
-      "scanCounter"
-    );
-
-
-  counter.textContent =
-    scannedItems.length +
-    " scanned";
-
+async function stopScanner(){
 
   if(
-    scannedItems.length===0
+    qrScanner &&
+    scannerRunning
   ){
 
-    container.innerHTML=
-      `
-      <div class="empty">
-        No items scanned yet
-      </div>
-      `;
+    try{
 
-    return;
+      await qrScanner.stop();
 
-  }
+      await qrScanner.clear();
 
+    }catch(error){
 
-  container.innerHTML =
-    scannedItems
-      .map(
-        (item,index)=>`
-
-        <div class="scanItem">
-
-          <div class="itemName">
-            ✓ ${item}
-          </div>
-
-          <button
-            class="removeScan"
-            onclick="removeScannedItem(${index})"
-          >
-            ×
-          </button>
-
-        </div>
-
-        `
-      )
-      .join("");
-
-}
-
-
-function removeScannedItem(
-  index
-){
-
-  scannedItems.splice(
-    index,
-    1
-  );
-
-  renderScannedItems();
-
-}
-
-
-function undoLastScan(){
-
-  if(
-    scannedItems.length===0
-  ){
-
-    showToast(
-      "Nothing to undo"
-    );
-
-    return;
-
-  }
-
-
-  const removed =
-    scannedItems.pop();
-
-
-  renderScannedItems();
-
-
-  showToast(
-    removed +
-    " removed"
-  );
-
-}
-
-
-function clearScans(){
-
-  scannedItems=[];
-
-  renderScannedItems();
-
-  showToast(
-    "Scanned items cleared"
-  );
-
-}
-
-
-function finishMultiScan(){
-
-  if(
-    scannedItems.length===0
-  ){
-
-    showToast(
-      "Scan some items first"
-    );
-
-    return;
-
-  }
-
-
-  let added=0;
-
-
-  scannedItems.forEach(
-    item=>{
-
-      if(
-        addToGroceryList(
-          item,
-          "Multi Scan"
-        )
-      ){
-
-        added++;
-
-      }
-
-    }
-  );
-
-
-  scannedItems=[];
-
-  renderScannedItems();
-
-  stopScanner();
-
-
-  openPage(
-    "groceries"
-  );
-
-
-  showToast(
-    added +
-    " item" +
-    (
-      added===1
-      ? ""
-      : "s"
-    ) +
-    " added to grocery list"
-  );
-
-}
-
-
-function stopScanner(){
-
-  if(scanTimer){
-
-    clearInterval(
-      scanTimer
-    );
-
-    scanTimer=null;
-
-  }
-
-
-  if(scannerStream){
-
-    scannerStream
-      .getTracks()
-      .forEach(
-        track=>track.stop()
+      console.log(
+        "Scanner stopped"
       );
 
-    scannerStream=null;
+    }
 
   }
 
 
-  const video =
-    document.getElementById(
-      "scannerVideo"
-    );
+  qrScanner=null;
 
-
-  video.srcObject=null;
+  scannerRunning=false;
 
 }
 
 
-function closeScanner(){
+/* SCAN ANOTHER */
 
-  stopScanner();
+async function scanAnother(){
+
+  await stopScanner();
+
+
+  document
+    .getElementById(
+      "scannerSuccess"
+    )
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById(
+      "scannerStart"
+    )
+    .style.display =
+    "block";
+
+
+  processingScan=false;
+
+}
+
+
+/* CLOSE SCANNER */
+
+async function closeScanner(){
+
+  await stopScanner();
+
+  processingScan=false;
 
   openPage(
     "home"
@@ -2012,9 +2296,9 @@ function closeScanner(){
 }
 
 
-/* -----------------------------
-NFC / NORMAL QR LINK
------------------------------ */
+/* ==============================
+NFC + EXISTING QR LINKS
+============================== */
 
 function checkNFCLink(){
 
@@ -2025,7 +2309,9 @@ function checkNFCLink(){
 
 
   const item =
-    params.get("add");
+    params.get(
+      "add"
+    );
 
 
   if(!item)
@@ -2050,30 +2336,39 @@ function checkNFCLink(){
 
     showToast(
       item +
-      " is already on your list"
+      " is already listed"
     );
 
   }
 
 
+  /*
+    Remove ?add=...
+    after processing.
+  */
+
   window.history.replaceState(
+
     {},
+
     document.title,
+
     window.location.pathname
+
   );
 
 }
 
 
-/* -----------------------------
+/* ==============================
 RENDER
------------------------------ */
+============================== */
 
 function render(){
 
-  /* HOME COUNTS */
+  /* HOME COUNTERS */
 
-  const groceryCount =
+  const activeGroceries =
     groceries.filter(
       item=>!item.done
     ).length;
@@ -2084,12 +2379,14 @@ function render(){
       "groceryCountHome"
     )
     .textContent =
-      groceryCount +
-      (
-        groceryCount===1
-        ? " item"
-        : " items"
-      );
+
+    activeGroceries +
+
+    (
+      activeGroceries===1
+      ? " item"
+      : " items"
+    );
 
 
   document
@@ -2097,12 +2394,14 @@ function render(){
       "kitchenCountHome"
     )
     .textContent =
-      inventory.length +
-      (
-        inventory.length===1
-        ? " item"
-        : " items"
-      );
+
+    inventory.length +
+
+    (
+      inventory.length===1
+      ? " item"
+      : " items"
+    );
 
 
   /* GROCERY LIST */
@@ -2117,95 +2416,137 @@ function render(){
     groceries.length===0
   ){
 
-    groceryList.innerHTML=
-      `
+    groceryList.innerHTML=`
+
       <div class="empty">
+
         Your grocery list is empty.
+
       </div>
-      `;
+
+    `;
 
   }else{
 
     groceryList.innerHTML =
+
       groceries
-        .map(
-          (item,index)=>`
 
-          <div class="row ${
-            item.done
-            ?
-            "groceryDone"
-            :
-            ""
-          }">
+      .map(
+        (item,index)=>`
 
-            <div style="
+        <div
+          class="
+            row
+            ${
+              item.done
+              ? "groceryDone"
+              : ""
+            }
+          "
+        >
+
+          <div
+            style="
               display:flex;
               align-items:center;
               gap:11px;
               flex:1;
-            ">
+            "
+          >
 
-              <input
-                class="checkbox"
-                type="checkbox"
-                ${
-                  item.done
-                  ?
-                  "checked"
-                  :
-                  ""
-                }
-                onchange="toggleGrocery(${index})"
-              >
+            <input
+              class="checkbox"
+              type="checkbox"
 
-              <div>
+              ${
+                item.done
+                ? "checked"
+                : ""
+              }
 
-                <div class="itemName">
-                  ${item.name}
-                </div>
+              onchange="
+                toggleGrocery(
+                  ${index}
+                )
+              "
+            >
 
-                <div class="small">
-                  ${item.source || ""}
-                </div>
+
+            <div>
+
+              <div class="itemName">
+
+                ${item.name}
+
+              </div>
+
+
+              <div class="small">
+
+                ${item.source || ""}
 
               </div>
 
             </div>
 
+          </div>
 
-            <div>
 
-              ${
-                item.done
-                ?
-                `
-                <button
-                  class="secondary"
-                  onclick="putInKitchen(${index})"
-                >
-                  Kitchen
-                </button>
-                `
-                :
-                ""
-              }
+          <div>
+
+            ${
+              item.done
+
+              ?
+
+              `
 
               <button
-                class="danger"
-                onclick="deleteGrocery(${index})"
-                style="padding:8px 10px;"
+                class="secondary"
+                onclick="
+                  putInKitchen(
+                    ${index}
+                  )
+                "
               >
-                ×
+
+                Kitchen
+
               </button>
 
-            </div>
+              `
+
+              :
+
+              ""
+            }
+
+
+            <button
+              class="danger"
+              style="
+                padding:8px 10px;
+              "
+              onclick="
+                deleteGrocery(
+                  ${index}
+                )
+              "
+            >
+
+              ×
+
+            </button>
 
           </div>
 
-          `
-        )
-        .join("");
+        </div>
+
+        `
+      )
+
+      .join("");
 
   }
 
@@ -2222,39 +2563,53 @@ function render(){
     inventory.length===0
   ){
 
-    kitchenList.innerHTML=
-      `
+    kitchenList.innerHTML=`
+
       <div class="empty">
+
         Your kitchen is empty.
+
       </div>
-      `;
+
+    `;
 
   }else{
 
     kitchenList.innerHTML =
+
       inventory
-        .map(
-          (item,index)=>`
 
-          <div class="row">
+      .map(
+        (item,index)=>`
 
-            <div class="itemName">
-              ${item}
-            </div>
+        <div class="row">
 
-            <button
-              class="danger"
-              onclick="removeKitchenItem(${index})"
-              style="padding:8px 11px;"
-            >
-              Remove
-            </button>
+          <div class="itemName">
+
+            ${item}
 
           </div>
 
-          `
-        )
-        .join("");
+
+          <button
+            class="danger"
+            onclick="
+              removeKitchenItem(
+                ${index}
+              )
+            "
+          >
+
+            Remove
+
+          </button>
+
+        </div>
+
+        `
+      )
+
+      .join("");
 
   }
 
@@ -2266,62 +2621,40 @@ function render(){
       "quickGrid"
     )
     .innerHTML =
-      quickItems
-        .map(
-          item=>`
 
-          <button
-            class="quick"
-            onclick='quickAdd(${JSON.stringify(item)})'
-          >
-            + ${item}
-          </button>
+    quickItems
 
-          `
-        )
-        .join("");
+    .map(
+      item=>`
 
+      <button
+        class="quick"
+        onclick='quickAdd(
+          ${JSON.stringify(item)}
+        )'
+      >
 
-  renderScannedItems();
+        + ${item}
+
+      </button>
+
+      `
+    )
+
+    .join("");
+
 
   findMeals();
 
 }
 
 
-function quickAdd(item){
-
-  const added =
-    addToGroceryList(
-      item,
-      "Quick Add"
-    );
-
-
-  if(added){
-
-    showToast(
-      item +
-      " added"
-    );
-
-  }else{
-
-    showToast(
-      item +
-      " is already listed"
-    );
-
-  }
-
-}
-
-
-/* -----------------------------
-START APP
------------------------------ */
+/* ==============================
+START KITCHENTAP
+============================== */
 
 render();
+
 checkNFCLink();
 
 </script>
