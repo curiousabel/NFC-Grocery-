@@ -352,10 +352,11 @@ input:focus,select:focus{
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
-  width:275px;
-  height:170px;
+  width:90%;
+  max-width:330px;
+  height:150px;
   border:3px solid rgba(255,255,255,.95);
-  border-radius:28px;
+  border-radius:25px;
   pointer-events:none;
   box-shadow:0 0 0 999px rgba(0,0,0,.16);
 }
@@ -363,8 +364,8 @@ input:focus,select:focus{
 .scan-guide:before{
   content:"";
   position:absolute;
-  left:10%;
-  right:10%;
+  left:7%;
+  right:7%;
   top:50%;
   height:2px;
   background:var(--green);
@@ -588,7 +589,7 @@ input:focus,select:focus{
   <div class="scanner-header">
     <div>
       <div class="page-title">Rapid Scan</div>
-      <div class="subtitle">QR, UPC, EAN and product barcodes.</div>
+      <div class="subtitle">Fast QR, UPC and EAN scanning.</div>
     </div>
 
     <div id="scanCount" class="scan-count">0 added</div>
@@ -848,7 +849,7 @@ function showToast(message){
 
   showToast.timer = setTimeout(function(){
     toast.classList.remove("show");
-  },1700);
+  },1500);
 }
 
 function setSyncStatus(text,type=""){
@@ -956,7 +957,6 @@ async function loadFromCloud(){
     console.error(error);
 
     cloudLoaded = true;
-
     setSyncStatus("☁ Offline","error");
 
     render();
@@ -1033,14 +1033,12 @@ function manualAddGrocery(){
 
 function toggleGrocery(index){
   groceries[index].done = !groceries[index].done;
-
   save();
   render();
 }
 
 function deleteGrocery(index){
   groceries.splice(index,1);
-
   save();
   render();
 }
@@ -1109,7 +1107,6 @@ function clearAllGroceries(){
   }
 
   groceries = [];
-
   save();
   render();
 }
@@ -1152,7 +1149,6 @@ function addKitchenItem(){
 
 function removeKitchenItem(index){
   inventory.splice(index,1);
-
   save();
   render();
 }
@@ -1235,6 +1231,7 @@ function findMeals(){
       return `
         <div class="missing">
           + ${escapeHTML(ingredient)}
+
           <button
             class="secondary"
             onclick='addSingleIngredient(${JSON.stringify(ingredient)})'
@@ -1253,8 +1250,12 @@ function findMeals(){
             <div class="meal-name">
               ${escapeHTML(meal.name)}
             </div>
+
             <div class="small">
-              ${meal.owned.length} of ${meal.ingredients.length} ingredients
+              ${meal.owned.length}
+              of
+              ${meal.ingredients.length}
+              ingredients
             </div>
           </div>
 
@@ -1298,17 +1299,33 @@ function openScanner(){
   startScanner();
 }
 
+/* FAST BARCODE SCANNER */
+
 async function startScanner(){
   if(scannerRunning){
     return;
   }
 
-  const message = document.getElementById("scanMessage");
+  const message =
+  document.getElementById("scanMessage");
 
-  message.textContent = "Starting camera…";
+  message.textContent =
+  "Starting camera…";
 
   try{
-    qrScanner = new Html5Qrcode("reader");
+    qrScanner = new Html5Qrcode(
+      "reader",
+      {
+        formatsToSupport:[
+          Html5QrcodeSupportedFormats.QR_CODE,
+          Html5QrcodeSupportedFormats.UPC_A,
+          Html5QrcodeSupportedFormats.UPC_E,
+          Html5QrcodeSupportedFormats.EAN_13,
+          Html5QrcodeSupportedFormats.EAN_8,
+          Html5QrcodeSupportedFormats.CODE_128
+        ]
+      }
+    );
 
     scannerRunning = true;
 
@@ -1317,12 +1334,16 @@ async function startScanner(){
         facingMode:"environment"
       },
       {
-        fps:20,
-        qrbox:{
-          width:275,
-          height:170
+        fps:25,
+
+        qrbox:function(width,height){
+          return {
+            width:Math.min(330,width - 30),
+            height:150
+          };
         },
-        aspectRatio:1,
+
+        aspectRatio:1.333,
         disableFlip:true
       },
       rapidScanSuccess,
@@ -1330,7 +1351,7 @@ async function startScanner(){
     );
 
     message.textContent =
-    "Point at a QR or product barcode";
+    "Fill the green box with the barcode";
 
   }catch(error){
     console.error(error);
@@ -1382,7 +1403,7 @@ function rapidScanSuccess(decodedText){
   if(
     decoded === lastScan
     &&
-    now - lastScanTime < 2000
+    now - lastScanTime < 900
   ){
     return;
   }
@@ -1430,8 +1451,8 @@ function rapidScanSuccess(decodedText){
     scanLocked = false;
 
     document.getElementById("scanMessage").textContent =
-    "Point at the next QR or product barcode";
-  },400);
+    "Fill the green box with the next barcode";
+  },250);
 }
 
 function runBarcodeAction(barcode,action){
@@ -1506,7 +1527,7 @@ function cancelBarcode(){
   scanLocked = false;
 
   document.getElementById("scanMessage").textContent =
-  "Point at the next QR or product barcode";
+  "Fill the green box with the barcode";
 }
 
 function saveBarcode(){
@@ -1552,8 +1573,8 @@ function saveBarcode(){
     scanLocked = false;
 
     document.getElementById("scanMessage").textContent =
-    "Point at the next QR or product barcode";
-  },500);
+    "Fill the green box with the next barcode";
+  },300);
 }
 
 function showScanFlash(message){
@@ -1566,7 +1587,7 @@ function showScanFlash(message){
 
   showScanFlash.timer = setTimeout(function(){
     flash.classList.remove("show");
-  },900);
+  },700);
 }
 
 function updateScanCount(){
